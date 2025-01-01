@@ -1,0 +1,8 @@
+@use "normalize-scss" as *;
+
+/* Normalizeの後に追加のグローバルスタイル */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
