@@ -1,0 +1,64 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-order"],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "scss/dollar-variable-pattern": null,
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "use",
+          "content",
+          "each",
+          "else",
+          "extend",
+          "for",
+          "function",
+          "if",
+          "include",
+          "mixin",
+          "return"
+        ]
+      }
+    ],
+    "alpha-value-notation": "number",
+    "selector-class-pattern": null,
+    "color-named": "never",
+    "function-url-quotes": "never",
+    "no-descending-specificity": null,
+    "no-empty-source": null,
+    "rule-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "order/properties-order": [
+      "display",
+      "box-sizing",
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+      "flex",
+      "flex-grow",
+      "flex-shrink",
+      "flex-basis",
+      "grid",
+      "grid-template-columns",
+      "grid-template-rows",
+      "grid-area",
+      "width",
+      "height",
+      "margin",
+      "padding",
+      "background",
+      "color",
+      "font",
+      "text-align",
+      "line-height",
+      "box-shadow",
+      "transform",
+      "animation"
+    ]
+  }
+}
