@@ -63,6 +63,7 @@ const eslintConfig = [
     files: ['**/*.tsx'],
     rules: {
       'import/no-default-export': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   {
