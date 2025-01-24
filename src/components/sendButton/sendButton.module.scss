@@ -1,0 +1,21 @@
+@use "@/styles/index.scss" as *;
+
+.sendButton {
+  background-color: $color-primary;
+  height: 30px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size-sm;
+  border: none;
+  cursor: pointer;
+  box-shadow: $box-shadow-button;
+  transition: all 0.3s ease-in-out;
+  color: $color-text;
+
+  &:hover {
+    transform: translateY(3px);
+    box-shadow: none;
+  }
+}

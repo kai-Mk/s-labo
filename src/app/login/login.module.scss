@@ -1,0 +1,74 @@
+@use "@/styles/index.scss" as *;
+
+.login {
+  .login_header {
+    height: 60px;
+    background-color: $color-primary;
+  }
+
+  .login_box {
+    width: 100%;
+    max-width: 550px;
+    height: 450px;
+    background-color: $color-white;
+    margin: 4rem auto 0;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: $box-shadow;
+
+    .login_title {
+      font-size: $font-size-lg;
+      margin: 1rem 0 1rem;
+    }
+
+    .login_form {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 0 auto;
+
+      .login_input_field {
+        display: block;
+        height: 45px;
+        border-radius: 45px;
+        border: none;
+        box-shadow: $box-shadow-inset;
+        padding: 0.3rem 2rem;
+
+        &:last-of-type {
+          margin: 3rem 0 0.5rem;
+        }
+      }
+
+      .login_forget_pass_text {
+        text-align: left;
+        font-size: $font-size-xs;
+
+        .login_link {
+          color: $color-link;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .login_send_button {
+        width: 200px;
+        margin: 2rem auto 2rem;
+      }
+    }
+    .login_not_signup_text {
+      font-size: $font-size-xs;
+
+      .login_link {
+        color: $color-link;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
