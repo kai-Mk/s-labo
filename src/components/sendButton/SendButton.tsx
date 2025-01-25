@@ -3,13 +3,17 @@ import styles from './sendButton.module.scss';
 
 interface SendButtonProps {
   value: string;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 
 const SendButton = ({ value, onClick, className }: SendButtonProps) => {
   return (
-    <button className={`${styles.sendButton} ${className}`} onClick={onClick}>
+    <button
+      className={`${styles.sendButton} ${className}`}
+      onClick={onClick}
+      type="submit"
+    >
       {value}
     </button>
   );

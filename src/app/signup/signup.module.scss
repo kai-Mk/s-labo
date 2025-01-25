@@ -7,23 +7,26 @@
   margin: 0 auto;
 
   .signup_input_field {
-    display: block;
+    width: 100%;
     height: 45px;
     border-radius: 45px;
     border: none;
     box-shadow: $box-shadow-inset;
     padding: 0.3rem 2rem;
-    margin-bottom: 2rem;
+  }
 
-    &:last-of-type {
-      margin: 0;
+  .error_field {
+    border: 1px solid $color-error;
+
+    &::placeholder {
+      color: $color-error;
     }
   }
-}
 
-.signup_send_button {
-  width: 200px;
-  margin: 2.5rem auto 2rem;
+  .signup_send_button {
+    width: 200px;
+    margin: 2rem auto;
+  }
 }
 
 .is_signup_text {

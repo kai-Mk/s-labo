@@ -1,0 +1,14 @@
+@use "@/styles/index.scss" as *;
+
+.input_groupe {
+  margin-bottom: 3rem;
+  position: relative;
+
+  .error_message {
+    font-size: $font-size-xs;
+    position: absolute;
+    bottom: -2.1rem;
+    left: 2rem;
+    color: $color-error;
+  }
+}
