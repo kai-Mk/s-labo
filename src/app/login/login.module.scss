@@ -8,28 +8,12 @@
 
   .login_input_field {
     display: block;
+    width: 100%;
     height: 45px;
     border-radius: 45px;
     border: none;
     box-shadow: $box-shadow-inset;
     padding: 0.3rem 2rem;
-
-    &:last-of-type {
-      margin: 3rem 0 0.5rem;
-    }
-  }
-
-  .login_forget_pass_text {
-    text-align: left;
-    font-size: $font-size-xs;
-
-    .login_link {
-      color: $color-link;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 
   .login_send_button {
@@ -37,14 +21,21 @@
     margin: 2rem auto 2rem;
   }
 }
-.login_not_signup_text {
-  font-size: $font-size-xs;
 
-  .login_link {
-    color: $color-link;
+.login_link_text_container {
+  display: flex;
+  justify-content: center;
 
-    &:hover {
-      text-decoration: underline;
+  .login_link_text {
+    font-size: $font-size-xs;
+    padding: 0 1rem;
+
+    .login_link {
+      color: $color-link;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

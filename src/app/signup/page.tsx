@@ -16,7 +16,10 @@ const signupSchema = z.object({
   family_name: z.string().min(1, '姓は必須です'),
   given_name: z.string().min(1, '名は必須です'),
   user_name: z.string().min(1, 'ユーザー名は必須です'),
-  email: z.string().email('メールアドレスの形式が正しくありません'),
+  email: z
+    .string()
+    .min(1, 'メールアドレスは必須です')
+    .email('メールアドレスの形式が正しくありません'),
   password: z
     .string()
     .min(8, 'パスワードは8文字以上で入力してください')
