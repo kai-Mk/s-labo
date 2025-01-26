@@ -11,8 +11,8 @@ export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
 
   const isAuthPath =
-    pathname.startsWith('/login') ??
-    pathname.startsWith('/signup') ??
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/signup') ||
     pathname.startsWith('/forgot-password');
 
   // トークン取得

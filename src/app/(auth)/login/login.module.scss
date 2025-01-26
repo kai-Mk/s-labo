@@ -16,6 +16,21 @@
     padding: 0.3rem 2rem;
   }
 
+  .error_field {
+    border: 1px solid $color-error;
+
+    &::placeholder {
+      color: $color-error;
+    }
+  }
+
+  .login_password_icon_button {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   .login_send_button {
     width: 200px;
     margin: 2rem auto 2rem;

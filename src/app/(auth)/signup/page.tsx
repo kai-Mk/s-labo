@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/authLayout/AuthLayout';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
 import { zodResolver } from '@hookform/resolvers/zod';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityIcon from '@mui/icons-material/VisibilityOutlined';
+import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import styles from './signup.module.scss';
@@ -36,6 +39,12 @@ interface ErrorResponse {
 }
 
 const SignUp = () => {
+  // パスワードの表示切替状態管理
+  const [isPassVisible, setIsPassVisible] = useState({
+    isVisible: false,
+    type: 'password',
+  });
+
   const router = useRouter();
   const {
     register,
@@ -45,6 +54,7 @@ const SignUp = () => {
     resolver: zodResolver(signupSchema),
   });
 
+  // 新規登録処理
   const onSubmit = async (data: SignupFormData) => {
     try {
       const res = await fetch('/api/register', {
@@ -121,13 +131,29 @@ const SignUp = () => {
         </InputField>
         <InputField errorMessage={errors.password?.message}>
           <input
-            type="password"
+            type={isPassVisible.type}
             id="password"
             className={`${styles.signup_input_field} ${errors.password && styles.error_field}`}
             placeholder="パスワード（8文字以上、英数字を含む）"
             autoComplete="off"
             {...register('password')}
           />
+          {/* パスワードの表示切替 */}
+          <IconButton
+            className={styles.login_password_icon_button}
+            onClick={() => {
+              setIsPassVisible({
+                isVisible: !isPassVisible.isVisible,
+                type: isPassVisible.isVisible ? 'password' : 'text',
+              });
+            }}
+          >
+            {isPassVisible.isVisible ? (
+              <VisibilityIcon />
+            ) : (
+              <VisibilityOffIcon />
+            )}
+          </IconButton>
         </InputField>
         <SendButton value="新規登録" className={styles.signup_send_button} />
       </form>

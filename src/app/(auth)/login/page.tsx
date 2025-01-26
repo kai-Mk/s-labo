@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/authLayout/AuthLayout';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
 import { zodResolver } from '@hookform/resolvers/zod';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityIcon from '@mui/icons-material/VisibilityOutlined';
+import { IconButton } from '@mui/material';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -29,6 +32,12 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  // パスワードの表示切替状態管理
+  const [isPassVisible, setIsPassVisible] = useState({
+    isVisible: false,
+    type: 'password',
+  });
+
   const router = useRouter();
   const {
     register,
@@ -38,6 +47,7 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  // ログイン処理
   const onSubmit = async (data: LoginFormData) => {
     const result = await signIn('credentials', {
       email: data.email,
@@ -66,7 +76,7 @@ const Login = () => {
           <input
             type="email"
             id="email"
-            className={styles.login_input_field}
+            className={`${styles.login_input_field} ${errors.email && styles.error_field}`}
             placeholder="メールアドレス"
             autoComplete="off"
             {...register('email')}
@@ -74,13 +84,29 @@ const Login = () => {
         </InputField>
         <InputField errorMessage={errors.password?.message}>
           <input
-            type="password"
+            type={isPassVisible.type}
             id="password"
-            className={styles.login_input_field}
+            className={`${styles.login_input_field} ${errors.password && styles.error_field}`}
             placeholder="パスワード"
             autoComplete="off"
             {...register('password')}
           />
+          {/* パスワードの表示切替 */}
+          <IconButton
+            className={styles.login_password_icon_button}
+            onClick={() => {
+              setIsPassVisible({
+                isVisible: !isPassVisible.isVisible,
+                type: isPassVisible.isVisible ? 'password' : 'text',
+              });
+            }}
+          >
+            {isPassVisible.isVisible ? (
+              <VisibilityIcon />
+            ) : (
+              <VisibilityOffIcon />
+            )}
+          </IconButton>
         </InputField>
         <SendButton value="ログイン" className={styles.login_send_button} />
       </form>
