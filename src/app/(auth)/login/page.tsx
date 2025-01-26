@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import AuthLayout from '@/components/authLayout/AuthLayout';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -63,7 +62,8 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout title="ログイン画面">
+    <>
+      <h1 className={styles.auth_title}> ログイン</h1>
       <form
         action="post"
         className={styles.login_form}
@@ -124,7 +124,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

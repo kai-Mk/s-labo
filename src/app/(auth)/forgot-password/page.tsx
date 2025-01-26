@@ -1,11 +1,12 @@
 import React from 'react';
-import AuthLayout from '@/components/authLayout/AuthLayout';
+import styles from './forgetPassword.module.scss';
 
 const ForgetPassword = () => {
   return (
-    <AuthLayout title="パスワードを忘れた方へ">
+    <>
+      <h1 className={styles.auth_title}>パスワードを忘れた方</h1>
       <p>ForgetPass</p>
-    </AuthLayout>
+    </>
   );
 };
 
