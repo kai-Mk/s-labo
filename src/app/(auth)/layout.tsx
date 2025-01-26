@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import logo from '@/assets/images/s-labo_logo.png';
-import Header from '@/components/layout/header/Header';
 import styles from './auth.module.scss';
 
 export default function AuthLayout({
