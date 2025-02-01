@@ -1,0 +1,48 @@
+@use "@/styles/index.scss" as *;
+
+.team_project_container {
+  display: flex;
+  width: 100%;
+
+  .team_project_select_bar {
+    flex: 1;
+  }
+
+  .team_project_content {
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .team_project_box {
+      width: 95%;
+      height: 93%;
+      background-color: $color-white;
+      border-radius: 20px;
+      box-shadow: $box-shadow-inset;
+      position: relative;
+
+      .add_team_container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .add_team_link {
+          font-size: $font-size-md;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          max-width: 280px;
+          padding: 0 2rem;
+          height: 50px;
+          border-radius: 50px;
+          border: 1px solid $color-text;
+          color: $color-text;
+          @include button-hover;
+        }
+      }
+    }
+  }
+}

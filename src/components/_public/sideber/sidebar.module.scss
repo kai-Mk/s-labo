@@ -1,0 +1,25 @@
+@use "@/styles/index.scss" as *;
+$team-logo-size: 50px;
+
+.sidebar {
+  width: 80px;
+  background-color: #b4b4b4;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .sidebar_logo {
+    width: $team-logo-size;
+    height: $team-logo-size;
+    border-radius: $team-logo-size;
+    background-color: #d9d9d9;
+    margin-top: 1rem;
+  }
+
+  .sidebar_add_button {
+    width: 55px;
+    height: 55px;
+    margin-top: 1rem;
+  }
+}
