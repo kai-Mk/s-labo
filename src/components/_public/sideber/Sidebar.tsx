@@ -16,6 +16,8 @@ const Sidebar = () => {
     status === 'authenticated' ? userId : undefined,
   );
 
+  const avatarURL = 'https://api.dicebear.com/9.x/glass/svg?seed=';
+
   return (
     <div className={styles.sidebar}>
       {data &&
@@ -23,7 +25,22 @@ const Sidebar = () => {
         data.map((item) => (
           <div className={styles.sidebar_logo} key={item.team_member_id}></div>
         ))}
-
+      <div className={styles.sidebar_logo}>
+        <img
+          src={`${avatarURL}mino`}
+          alt="チームロゴ"
+          className={styles.sidebar_logo_img}
+        />
+        <p className={styles.sidebar_logo_name}>チーム名1</p>
+      </div>
+      <div className={styles.sidebar_logo}>
+        <img
+          src={`${avatarURL}sasa`}
+          alt="チームロゴ"
+          className={styles.sidebar_logo_img}
+        />
+        <p className={styles.sidebar_logo_name}>チーム名2</p>
+      </div>
       <Link href="/team/create">
         <IconButton className={styles.sidebar_add_button}>
           <AddCircleIcon sx={{ width: '50px', height: '50px' }} />
