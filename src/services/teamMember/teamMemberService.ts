@@ -1,6 +1,7 @@
 import { apiClient } from '@/lib/apiClient';
 import { type TeamMemberData } from '@/types/teamMember';
 
+// サインインしているユーザーのチームメンバーデータを取得するAPIを呼び出す
 export const fetchTeamMemberData = async (
   userId: string,
 ): Promise<TeamMemberData[]> => {

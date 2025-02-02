@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchTeamMemberData } from '@/services/teamMember/teamMemberService';
 import { type TeamMemberData } from '@/types/teamMember';
 
+// サインインしているユーザーのチームメンバーデータを取得するカスタムフック
 export const useTeamMemberData = (userId?: string) => {
   const [data, setData] = useState<TeamMemberData[]>([]);
   const [isLoading, setIsLoading] = useState(false);

@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 import { useTeamMemberData } from '@/hooks/teamMember/useTeamMemberData';
-import { apiClient } from '@/lib/apiClient';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useSession } from 'next-auth/react';
 import AddTeamButton from './AddTeamButton';
 import styles from './teamContent.module.scss';
@@ -25,10 +25,22 @@ const TeamContent = ({ children }: TeamContentProps) => {
       <div className={styles.team_project_select_bar}>
         <h2 className={styles.team_name}>チーム名</h2>
       </div>
+
       <div className={styles.team_project_content}>
-        <div className={styles.team_project_box}>
-          {data.length === 0 && pathname === '/' ? <AddTeamButton /> : children}
-        </div>
+        {isLoading ? (
+          <CircularProgress />
+        ) : error ? (
+          <p style={{ fontSize: '24px' }}>エラーが発生しました。</p>
+        ) : (
+          /* チームメンバーが存在しない場合は、チーム作成ボタンを表示 */
+          <div className={styles.team_project_box}>
+            {data.length === 0 && pathname === '/' ? (
+              <AddTeamButton />
+            ) : (
+              children
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
