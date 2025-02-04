@@ -18,6 +18,7 @@ const InputField = ({
     <div className={styles.input_groupe}>
       <label className={styles.input_label} htmlFor={htmlFor}>
         {label}
+        <span className={styles.input_required}>必須</span>
       </label>
       {children}
       {errorMessage && <p className={styles.error_message}>{errorMessage}</p>}

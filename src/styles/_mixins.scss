@@ -22,3 +22,16 @@
     box-shadow: none;
   }
 }
+
+@mixin input-field {
+  display: block;
+  height: 45px;
+  border-radius: 45px;
+  border: none;
+  box-shadow: $box-shadow-inset;
+  padding: 0.3rem 2rem;
+
+  &::placeholder {
+    color: $color-placeholder;
+  }
+}

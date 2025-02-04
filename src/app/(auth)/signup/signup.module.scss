@@ -13,15 +13,7 @@
 
   .signup_input_field {
     width: 100%;
-    height: 45px;
-    border-radius: 45px;
-    border: none;
-    box-shadow: $box-shadow-inset;
-    padding: 0.3rem 2rem;
-
-    &::placeholder {
-      color: $color-placeholder;
-    }
+    @include input-field;
   }
 
   .error_field {
