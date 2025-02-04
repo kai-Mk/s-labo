@@ -6,6 +6,7 @@ interface InputFieldProps {
   label: string;
   children: React.ReactNode;
   errorMessage?: string;
+  required?: boolean;
 }
 
 const InputField = ({
@@ -13,12 +14,13 @@ const InputField = ({
   label,
   children,
   errorMessage,
+  required = false,
 }: InputFieldProps) => {
   return (
     <div className={styles.input_groupe}>
       <label className={styles.input_label} htmlFor={htmlFor}>
         {label}
-        <span className={styles.input_required}>必須</span>
+        {required && <span className={styles.input_required}>必須</span>}
       </label>
       {children}
       {errorMessage && <p className={styles.error_message}>{errorMessage}</p>}
