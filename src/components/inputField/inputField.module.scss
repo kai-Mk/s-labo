@@ -1,8 +1,13 @@
 @use "@/styles/index.scss" as *;
 
 .input_groupe {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   position: relative;
+  text-align: left;
+
+  .input_label {
+    font-size: $font-size-sm;
+  }
 
   .error_message {
     font-size: $font-size-xs;

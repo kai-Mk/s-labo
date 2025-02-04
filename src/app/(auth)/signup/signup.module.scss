@@ -18,6 +18,10 @@
     border: none;
     box-shadow: $box-shadow-inset;
     padding: 0.3rem 2rem;
+
+    &::placeholder {
+      color: $color-placeholder;
+    }
   }
 
   .error_field {
@@ -28,11 +32,15 @@
     }
   }
 
-  .login_password_icon_button {
-    position: absolute;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
+  .signup_password_input_container {
+    position: relative;
+
+    .login_password_icon_button {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
   .signup_send_button {

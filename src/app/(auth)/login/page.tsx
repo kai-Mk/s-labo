@@ -72,41 +72,51 @@ const Login = () => {
           void handleSubmit(onSubmit)(e);
         }}
       >
-        <InputField errorMessage={errors.email?.message}>
+        <InputField
+          errorMessage={errors.email?.message}
+          htmlFor="email"
+          label="メールアドレス"
+        >
           <input
             type="email"
             id="email"
             className={`${styles.login_input_field} ${errors.email && styles.error_field}`}
-            placeholder="メールアドレス"
+            placeholder="メールアドレスを入力"
             autoComplete="off"
             {...register('email')}
           />
         </InputField>
-        <InputField errorMessage={errors.password?.message}>
-          <input
-            type={isPassVisible.type}
-            id="password"
-            className={`${styles.login_input_field} ${errors.password && styles.error_field}`}
-            placeholder="パスワード"
-            autoComplete="off"
-            {...register('password')}
-          />
-          {/* パスワードの表示切替 */}
-          <IconButton
-            className={styles.login_password_icon_button}
-            onClick={() => {
-              setIsPassVisible({
-                isVisible: !isPassVisible.isVisible,
-                type: isPassVisible.isVisible ? 'password' : 'text',
-              });
-            }}
-          >
-            {isPassVisible.isVisible ? (
-              <VisibilityIcon />
-            ) : (
-              <VisibilityOffIcon />
-            )}
-          </IconButton>
+        <InputField
+          errorMessage={errors.password?.message}
+          htmlFor="password"
+          label="パスワード"
+        >
+          <div className={styles.login_password_input_field}>
+            <input
+              type={isPassVisible.type}
+              id="password"
+              className={`${styles.login_input_field} ${errors.password && styles.error_field}`}
+              placeholder="パスワードを入力"
+              autoComplete="off"
+              {...register('password')}
+            />
+            {/* パスワードの表示切替 */}
+            <IconButton
+              className={styles.login_password_icon_button}
+              onClick={() => {
+                setIsPassVisible({
+                  isVisible: !isPassVisible.isVisible,
+                  type: isPassVisible.isVisible ? 'password' : 'text',
+                });
+              }}
+            >
+              {isPassVisible.isVisible ? (
+                <VisibilityIcon />
+              ) : (
+                <VisibilityOffIcon />
+              )}
+            </IconButton>
+          </div>
         </InputField>
         <SendButton value="ログイン" className={styles.login_send_button} />
       </form>

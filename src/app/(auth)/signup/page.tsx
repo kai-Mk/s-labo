@@ -89,71 +89,93 @@ const SignUp = () => {
           void handleSubmit(onSubmit)(e);
         }}
       >
-        <InputField errorMessage={errors.family_name?.message}>
+        <InputField
+          errorMessage={errors.family_name?.message}
+          htmlFor="family_name"
+          label="名前（姓）"
+        >
           <input
             type="text"
             id="family_name"
             className={`${styles.signup_input_field} ${errors.family_name && styles.error_field}`}
-            placeholder="名前（姓）"
+            placeholder="例：山田"
             autoComplete="off"
             {...register('family_name')}
           />
         </InputField>
-        <InputField errorMessage={errors.given_name?.message}>
+        <InputField
+          errorMessage={errors.given_name?.message}
+          htmlFor="given_name"
+          label="名前（名）"
+        >
           <input
             type="text"
             id="given_name"
             className={`${styles.signup_input_field} ${errors.given_name && styles.error_field}`}
-            placeholder="名前（名）"
+            placeholder="例：太郎"
             autoComplete="off"
             {...register('given_name')}
           />
         </InputField>
-        <InputField errorMessage={errors.user_name?.message}>
+        <InputField
+          errorMessage={errors.user_name?.message}
+          htmlFor="user_name"
+          label="ユーザー名（ログイン後表示名）"
+        >
           <input
             type="text"
             id="user_name"
             className={`${styles.signup_input_field} ${errors.user_name && styles.error_field}`}
-            placeholder="ユーザー名"
+            placeholder="例：taro"
             autoComplete="off"
             {...register('user_name')}
           />
         </InputField>
-        <InputField errorMessage={errors.email?.message}>
+        <InputField
+          errorMessage={errors.email?.message}
+          htmlFor="email"
+          label="メールアドレス"
+        >
           <input
             type="email"
             id="email"
             className={`${styles.signup_input_field} ${errors.email && styles.error_field}`}
-            placeholder="メールアドレス"
+            placeholder="例：taro@example.com"
             autoComplete="off"
             {...register('email')}
           />
         </InputField>
-        <InputField errorMessage={errors.password?.message}>
-          <input
-            type={isPassVisible.type}
-            id="password"
-            className={`${styles.signup_input_field} ${errors.password && styles.error_field}`}
-            placeholder="パスワード（8文字以上、英数字を含む）"
-            autoComplete="off"
-            {...register('password')}
-          />
-          {/* パスワードの表示切替 */}
-          <IconButton
-            className={styles.login_password_icon_button}
-            onClick={() => {
-              setIsPassVisible({
-                isVisible: !isPassVisible.isVisible,
-                type: isPassVisible.isVisible ? 'password' : 'text',
-              });
-            }}
-          >
-            {isPassVisible.isVisible ? (
-              <VisibilityIcon />
-            ) : (
-              <VisibilityOffIcon />
-            )}
-          </IconButton>
+        <InputField
+          errorMessage={errors.password?.message}
+          htmlFor="password"
+          label="パスワード（8文字以上、半角英数字を含む）"
+        >
+          <div className={styles.signup_password_input_container}>
+            <input
+              type={isPassVisible.type}
+              id="password"
+              className={`${styles.signup_input_field} ${errors.password && styles.error_field}`}
+              placeholder=""
+              autoComplete="off"
+              {...register('password')}
+            />
+            {/* パスワードの表示切替 */}
+            <IconButton
+              className={styles.login_password_icon_button}
+              onClick={() => {
+                setIsPassVisible({
+                  isVisible: !isPassVisible.isVisible,
+                  type: isPassVisible.isVisible ? 'password' : 'text',
+                });
+              }}
+            >
+              {isPassVisible.isVisible ? (
+                <VisibilityIcon />
+              ) : (
+                <VisibilityOffIcon />
+              )}
+            </IconButton>
+          </div>
         </InputField>
         <SendButton value="新規登録" className={styles.signup_send_button} />
       </form>
