@@ -39,6 +39,7 @@
       border-radius: 20px;
       padding: 1rem 2rem;
       resize: none;
+      font-size: $font-size-xs;
 
       &::placeholder {
         color: $color-placeholder;

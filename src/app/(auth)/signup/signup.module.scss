@@ -16,14 +16,6 @@
     @include input-field;
   }
 
-  .error_field {
-    border: 1px solid $color-error;
-
-    &::placeholder {
-      color: $color-error;
-    }
-  }
-
   .signup_password_input_container {
     position: relative;
 

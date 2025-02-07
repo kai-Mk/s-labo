@@ -30,6 +30,15 @@
   border: none;
   box-shadow: $box-shadow-inset;
   padding: 0.3rem 2rem;
+  font-size: $font-size-xs;
+
+  &.error_field {
+    border: 1px solid $color-error;
+
+    &::placeholder {
+      color: $color-error;
+    }
+  }
 
   &::placeholder {
     color: $color-placeholder;

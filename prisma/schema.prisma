@@ -14,15 +14,15 @@ datasource db {
 }
 
 model User {
-  user_id     Int       @id @default(autoincrement())
-  family_name String
-  given_name  String
-  user_name   String    @unique
-  email       String    @unique
+  user_id        Int       @id @default(autoincrement())
+  family_name    String
+  given_name     String
+  user_name      String    @unique
+  email          String    @unique
   hashedPassword String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  deleted_at  DateTime?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  deleted_at     DateTime?
 
   OwnedTeams  Team[]
   TeamMembers TeamMember[]
@@ -51,7 +51,7 @@ model Team {
 
 model Role {
   role_id    Int       @id @default(autoincrement())
-  role_nme   String
+  role_name  String    @unique
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?

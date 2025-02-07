@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTeamMemberData } from '@/hooks/teamMember/useTeamMemberData';
 import AddCircleIcon from '@mui/icons-material/AddCircleOutline';
@@ -23,24 +24,19 @@ const Sidebar = () => {
       {data &&
         data.length !== 0 &&
         data.map((item) => (
-          <div className={styles.sidebar_logo} key={item.team_member_id}></div>
+          <div className={styles.sidebar_logo} key={item.team_member_id}>
+            <Image
+              src={`${avatarURL}${item.team.team_name}`}
+              alt="チームロゴ"
+              className={styles.sidebar_logo_img}
+              width={50}
+              height={50}
+              priority
+              unoptimized
+            />
+            <p className={styles.sidebar_logo_name}>{item.team.team_name}</p>
+          </div>
         ))}
-      <div className={styles.sidebar_logo}>
-        <img
-          src={`${avatarURL}mino`}
-          alt="チームロゴ"
-          className={styles.sidebar_logo_img}
-        />
-        <p className={styles.sidebar_logo_name}>チーム名1</p>
-      </div>
-      <div className={styles.sidebar_logo}>
-        <img
-          src={`${avatarURL}sasa`}
-          alt="チームロゴ"
-          className={styles.sidebar_logo_img}
-        />
-        <p className={styles.sidebar_logo_name}>チーム名2</p>
-      </div>
       <Link href="/team/create">
         <IconButton className={styles.sidebar_add_button}>
           <AddCircleIcon sx={{ width: '50px', height: '50px' }} />
