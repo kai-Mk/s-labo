@@ -1,0 +1,250 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id        Int       @id @default(autoincrement())
+  family_name    String
+  given_name     String
+  user_name      String    @unique
+  email          String    @unique
+  hashedPassword String
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  deleted_at     DateTime?
+
+  OwnedTeams  Team[]
+  TeamMembers TeamMember[]
+
+  @@map("users")
+}
+
+model Team {
+  team_id          Int       @id @default(autoincrement())
+  team_name        String
+  team_description String?
+  owner_id         Int
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  deleted_at       DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  owner User @relation(fields: [owner_id], references: [user_id])
+
+  TeamMembers TeamMember[]
+  Project     Project[]
+  TeamInfo    TeamInfo[]
+
+  @@map("teams")
+}
+
+model Role {
+  role_id    Int       @id @default(autoincrement())
+  role_name  String    @unique
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  TeamMembers TeamMember[]
+
+  @@map("roles")
+}
+
+model TeamMember {
+  team_member_id Int       @id @default(autoincrement())
+  user_id        Int
+  team_id        Int
+  role_id        Int
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  deleted_at     DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  user                 User             @relation(fields: [user_id], references: [user_id])
+  team                 Team             @relation(fields: [team_id], references: [team_id])
+  role                 Role             @relation(fields: [role_id], references: [role_id])
+  ProjectMember        ProjectMember[]
+  Todo                 Todo[]
+  ReceivedTodoComment  TodoComment[]    @relation("receiverRelation")
+  CommentedTodoComment TodoComment[]    @relation("commenterRelation")
+  OvertimeReport       OvertimeReport[]
+  TimeBox              TimeBox[]
+
+  @@unique([user_id, team_id])
+  @@map("team_members")
+}
+
+model ProjectMember {
+  project_member_id Int       @id @default(autoincrement())
+  team_member_id    Int
+  project_id        Int
+  position_id       Int
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  deleted_at        DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  team_member TeamMember @relation(fields: [team_member_id], references: [team_member_id])
+  project     Project    @relation(fields: [project_id], references: [project_id])
+  position    Position   @relation(fields: [position_id], references: [position_id])
+
+  @@unique([team_member_id, project_id])
+  @@map("project_members")
+}
+
+model Position {
+  position_id   Int             @id @default(autoincrement())
+  position_nme  String
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  deleted_at    DateTime?
+  ProjectMember ProjectMember[]
+
+  @@map("positions")
+}
+
+model Project {
+  project_id          Int       @id @default(autoincrement())
+  project_name        String
+  project_description String?
+  team_id             Int
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+  deleted_at          DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  team           Team             @relation(fields: [team_id], references: [team_id])
+  ProjectMember  ProjectMember[]
+  Todo           Todo[]
+  OvertimeReport OvertimeReport[]
+  TimeBox        TimeBox[]
+
+  @@map("projects")
+}
+
+model TeamInfo {
+  info_id      Int       @id @default(autoincrement())
+  info_title   String
+  info_content String
+  event_date   DateTime?
+  team_id      Int
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  deleted_at   DateTime?
+
+  team Team @relation(fields: [team_id], references: [team_id])
+
+  @@map("team_infos")
+}
+
+model Todo {
+  todo_id          Int       @id @default(autoincrement())
+  todo_description String
+  task_category_id Int
+  project_id       Int?
+  todo_checked     Boolean
+  team_member_id   Int
+  todo_date        DateTime
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  deleted_at       DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  task_category TaskCategory @relation(fields: [task_category_id], references: [task_category_id])
+  project       Project?     @relation(fields: [project_id], references: [project_id])
+  team_member   TeamMember   @relation(fields: [team_member_id], references: [team_member_id])
+
+  @@map("todos")
+}
+
+model TaskCategory {
+  task_category_id   Int       @id @default(autoincrement())
+  task_category_name String
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  deleted_at         DateTime?
+  Todo               Todo[]
+  TimeBox            TimeBox[]
+
+  @@map("task_categories")
+}
+
+model TodoComment {
+  todo_comment_id Int       @id @default(autoincrement())
+  receiver_id     Int
+  commenter_id    Int
+  comment_text    String
+  view_date       DateTime
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  deleted_at      DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  receiver  TeamMember @relation(fields: [receiver_id], references: [team_member_id], name: "receiverRelation")
+  commenter TeamMember @relation(fields: [commenter_id], references: [team_member_id], name: "commenterRelation")
+
+  @@map("todo_comments")
+}
+
+model OvertimeReport {
+  overtime_report_id Int       @id @default(autoincrement())
+  has_overtime       Boolean
+  overtime_hours     Float?
+  project_id         Int?
+  task_description   String?
+  team_member_id     Int
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  deleted_at         DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  project     Project?   @relation(fields: [project_id], references: [project_id])
+  team_member TeamMember @relation(fields: [team_member_id], references: [team_member_id])
+
+  @@map("overtime_reports")
+}
+
+model TimeBox {
+  time_box_id        Int       @id @default(autoincrement())
+  task_description   String
+  notes              String?
+  start_time         DateTime
+  end_time           DateTime
+  team_member_id     Int
+  task_category_id   Int
+  project_id         Int?
+  time_box_status_id Int
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  deleted_at         DateTime?
+
+  // 外部キーの指定とリレーションの定義
+  team_member     TeamMember    @relation(fields: [team_member_id], references: [team_member_id])
+  task_category   TaskCategory  @relation(fields: [task_category_id], references: [task_category_id])
+  project         Project?      @relation(fields: [project_id], references: [project_id])
+  time_box_status TimeBoxStatus @relation(fields: [time_box_status_id], references: [time_box_status_id])
+
+  @@map("time_boxes")
+}
+
+model TimeBoxStatus {
+  time_box_status_id Int       @id @default(autoincrement())
+  status_name        String
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  deleted_at         DateTime?
+  TimeBox            TimeBox[]
+
+  @@map("time_box_statuses")
+}
