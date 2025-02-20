@@ -1,0 +1,36 @@
+@use "node_modules/normalize.css/normalize.css";
+@use "./variables" as *;
+
+/* Normalizeの後に追加のグローバルスタイル */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  width: 100%;
+  background-color: $color-bg;
+  color: $color-text;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+input,
+textarea {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,0 +1,38 @@
+{
+    "plugins": [
+      "@ianvs/prettier-plugin-sort-imports"
+    ],
+    "importOrder": [
+      "<TYPES>",
+      "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
+      "^(next/(.*)$)|^(next$)",
+      "^(expo(.*)$)|^(expo$)",
+      "<THIRD_PARTY_MODULES>",
+      "<TYPES>^@acme",
+      "^@acme/(.*)$",
+      "<TYPES>^[.|..|~]",
+      "^~/",
+      "^[../]",
+      "^[./]"
+    ],
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+    "importOrderTypeScriptVersion": "5.0.0",
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "overrides": [
+      {
+        "files": "*.scss",
+        "options": {
+          "singleQuote": false
+        }
+      }
+    ],
+    "endOfLine": "lf",
+    "arrowParens": "always",
+    "htmlWhitespaceSensitivity": "css"
+  }

@@ -1,0 +1,46 @@
+@use "./variables.scss" as *;
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 5px;
+  }
+}
+
+@mixin button-hover {
+  box-shadow: $box-shadow-button;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: none;
+    transform: translateY(3px);
+  }
+}
+
+@mixin input-field {
+  display: block;
+  height: 45px;
+  padding: 0.3rem 2rem;
+  box-shadow: $box-shadow-inset;
+  border-radius: 45px;
+  border: none;
+  font-size: $font-size-xs;
+
+  &.error_field {
+    border: 1px solid $color-error;
+
+    &::placeholder {
+      color: $color-error;
+    }
+  }
+
+  &::placeholder {
+    color: $color-placeholder;
+  }
+}
