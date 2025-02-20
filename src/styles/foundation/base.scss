@@ -1,5 +1,5 @@
 @use "node_modules/normalize.css/normalize.css";
-@use "./variables" as *;
+@use "../global/variables" as *;
 
 /* Normalizeの後に追加のグローバルスタイル */
 * {
