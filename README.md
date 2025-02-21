@@ -12,6 +12,8 @@ npm install
 npm run dev
 ```
 
+http://localhost:3000
+
 # prisma
 * マイグレーション
 ```bash
