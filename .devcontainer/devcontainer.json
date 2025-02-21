@@ -28,5 +28,6 @@
 				"usernamehw.errorlens"
 			]
 		}
-	}
+	},
+	"postCreateCommand": "npm install && npm run dev"
 }
