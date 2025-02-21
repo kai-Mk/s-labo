@@ -1,0 +1,32 @@
+@use "@/styles/global/index.scss" as *;
+
+.input_groupe {
+  margin-bottom: 25px;
+  position: relative;
+  text-align: left;
+
+  .input_label {
+    font-size: $font-size-sm;
+    display: block;
+    margin-bottom: 5px;
+
+    .input_required {
+      width: 50px;
+      height: 20px;
+      padding: 0 8px;
+      color: $color-white;
+      font-size: $font-size-xs;
+      background-color: $color-error;
+      border-radius: 10px;
+      margin-left: 8px;
+    }
+  }
+
+  .error_message {
+    font-size: $font-size-xs;
+    position: absolute;
+    bottom: -21px;
+    left: 20px;
+    color: $color-error;
+  }
+}

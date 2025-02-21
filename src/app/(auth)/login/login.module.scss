@@ -1,0 +1,53 @@
+@use "@/styles/global/index.scss" as *;
+
+.auth_title {
+  font-size: $font-size-lg;
+  margin: 10px 0;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+
+  .login_input_field {
+    width: 100%;
+
+    @include input-field;
+  }
+
+  .login_password_input_field {
+    position: relative;
+
+    .login_password_icon_button {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+    }
+  }
+
+  .login_send_button {
+    width: 200px;
+    margin: 10px auto 20px;
+  }
+}
+
+.login_link_text_container {
+  display: flex;
+  justify-content: center;
+
+  .login_link_text {
+    font-size: $font-size-xs;
+    padding: 0 10px;
+
+    .login_link {
+      color: $color-link;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

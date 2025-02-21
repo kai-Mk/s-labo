@@ -1,0 +1,28 @@
+@use "@/styles/global/index.scss" as *;
+
+.auth {
+  .auth {
+    height: 60px;
+    background-color: $color-primary;
+  }
+
+  .auth_box {
+    width: 100%;
+    max-width: 550px;
+    height: 450px;
+    background-color: $color-white;
+    margin: 40px auto 0;
+    padding: 30px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: $box-shadow;
+    overflow-y: auto;
+
+    @include scrollbar;
+
+    .auth_title {
+      font-size: $font-size-lg;
+      margin: 10px 0;
+    }
+  }
+}

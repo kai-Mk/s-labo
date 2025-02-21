@@ -1,0 +1,15 @@
+@use "@/styles/global/index.scss" as *;
+
+.send_button {
+  display: flex;
+  height: 30px;
+  color: $color-text;
+  background-color: $color-primary;
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size-sm;
+  border: none;
+
+  @include button-hover;
+}
