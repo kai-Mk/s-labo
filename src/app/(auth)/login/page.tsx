@@ -10,7 +10,7 @@ const Login = () => {
       <div className={styles.login_link_text_container}>
         <p className={styles.login_link_text}>
           パスワードを忘れた方は
-          <Link href="/forget-password" className={styles.login_link}>
+          <Link href="/forgot-password" className={styles.login_link}>
             こちら
           </Link>
         </p>

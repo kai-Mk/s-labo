@@ -1,10 +1,5 @@
 @use "@/styles/global/index.scss" as *;
 
-.auth_title {
-  font-size: $font-size-lg;
-  margin: 10px 0;
-}
-
 .signup_form {
   display: flex;
   flex-direction: column;
