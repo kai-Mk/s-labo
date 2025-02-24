@@ -1,0 +1,9 @@
+@use "@/styles/global/index.scss" as *;
+
+.not_found {
+  font-size: $font-size-lg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

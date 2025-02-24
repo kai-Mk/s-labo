@@ -79,6 +79,12 @@ const eslintConfig = [
       'import/prefer-default-export': 'error',
     },
   },
+  {
+    files: ['**/not-found.tsx'],
+    rules: {
+      'unicorn/filename-case': 'off',
+    },
+  },
 ];
 
 export default eslintConfig;
