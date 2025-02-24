@@ -1,4 +1,5 @@
 import React from 'react';
+import { headers } from 'next/headers';
 import Header from '@/components/_layout/header/Header';
 import Sidebar from '@/components/_public/sidebar/Sidebar';
 import TeamDetails from '@/components/_public/teamDetails/TeamDetails';

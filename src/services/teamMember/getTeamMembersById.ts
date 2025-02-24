@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/db';
 
-export const getTeamMembersById = async (userId: string) => {
+export const getTeamMembersById = async (userId: string | null) => {
   try {
     const teamMembers = await prisma.teamMember.findMany({
       where: { user_id: Number(userId) },

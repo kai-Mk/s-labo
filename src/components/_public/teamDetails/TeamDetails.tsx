@@ -1,7 +1,7 @@
-import type TeamMemberData from '@/types/teamMember';
 import React from 'react';
-import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById.ts';
+import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById';
 import styles from './teamDetails.module.scss';
+import TeamProjectBox from './TeamProjectBox';
 
 interface TeamDetailsProps {
   children: React.ReactNode;
@@ -26,7 +26,9 @@ const TeamDetails = async ({ children, userId }: TeamDetailsProps) => {
       </div>
       {/* チーム内の詳細画面 */}
       <div className={styles.team_project_content}>
-        <div className={styles.team_project_box}>{children}</div>
+        <TeamProjectBox teamMemberData={teamMemberData}>
+          {children}
+        </TeamProjectBox>
       </div>
     </div>
   );

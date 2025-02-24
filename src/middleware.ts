@@ -9,6 +9,9 @@ export const config = {
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
 
+  const response = NextResponse.next();
+  response.headers.set('x-path', pathname);
+
   const isAuthPath =
     pathname.startsWith('/login') ||
     pathname.startsWith('/signup') ||
@@ -21,5 +24,5 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
-  return NextResponse.next();
+  return response;
 };
