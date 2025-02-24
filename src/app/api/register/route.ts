@@ -24,7 +24,7 @@ export const POST = async (req: Request) => {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return NextResponse.json(
-        { error: 'ユーザーは既に存在します' },
+        { error: 'このメールアドレスは既に存在しています' },
         { status: 400 },
       );
     }

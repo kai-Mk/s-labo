@@ -74,7 +74,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-// ===NextAuth側でAppRouterの明確な方が似ためESLintをスルーさせます。===
+// ===NextAuth側でAppRouterの明確な型がないためESLintをスルーさせます。===
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 const handler = NextAuth(authOptions);
 /* eslint-enable @typescript-eslint/no-unsafe-assignment */

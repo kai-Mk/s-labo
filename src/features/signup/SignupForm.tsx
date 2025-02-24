@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/(auth)/signup/signup.module.scss';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
@@ -30,6 +31,11 @@ const signupSchema = z.object({
 
 type SignupFormData = z.infer<typeof signupSchema>;
 
+// エラーの型定義
+interface ErrorResponse {
+  error?: string;
+}
+
 const SignupForm = () => {
   const [isPassVisible, setIsPassVisible] = useState({
     isVisible: false,
@@ -45,8 +51,31 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit = (data: SignupFormData) => {
+  const router = useRouter();
+
+  const onSubmit = async (data: SignupFormData) => {
     // 送信時の処理
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const errorData = (await res.json()) as ErrorResponse;
+        alert(errorData.error ?? '登録に失敗しました');
+        return;
+      }
+
+      alert('登録が完了しました');
+      router.push('/login');
+    } catch (error) {
+      console.error('Registration error', error);
+      alert('サーバーエラーが発生しました。');
+    }
   };
 
   return (

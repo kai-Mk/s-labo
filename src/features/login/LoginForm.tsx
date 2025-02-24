@@ -2,6 +2,7 @@
 
 import { register } from 'module';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/(auth)/login/login.module.scss';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
@@ -9,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityIcon from '@mui/icons-material/VisibilityOutlined';
 import { IconButton } from '@mui/material';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -42,9 +44,27 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: LoginFormData) => {
-    // 送信に内容
+    try {
+      const result = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      if (result?.error) {
+        alert(result.error);
+      } else {
+        alert('ログインに成功しました');
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('予期しないエラー', error);
+      alert('予期しないエラーが発生しました');
+    }
   };
+
   return (
     <form
       className={styles.login_form}
