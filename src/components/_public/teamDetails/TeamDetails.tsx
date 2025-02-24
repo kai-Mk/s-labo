@@ -1,7 +1,16 @@
+import type TeamMemberData from '@/types/teamMember';
 import React from 'react';
+import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById.ts';
 import styles from './teamDetails.module.scss';
 
-const TeamDetails = ({ children }: { children: React.ReactNode }) => {
+interface TeamDetailsProps {
+  children: React.ReactNode;
+  userId: string | null;
+}
+
+const TeamDetails = async ({ children, userId }: TeamDetailsProps) => {
+  const teamMemberData = await getTeamMembersById(userId);
+
   return (
     <div className={styles.team_project_container}>
       <div className={styles.team_project_left_bar}>
