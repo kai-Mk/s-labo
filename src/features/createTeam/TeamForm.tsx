@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/create/createTeam.module.scss';
 import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
+import { apiClient } from '@/lib/apiClient';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AxiosError, isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -13,19 +16,32 @@ const createTeamSchema = z.object({
   team_description: z.string().nullable(),
 });
 
-type createTeamData = z.infer<typeof createTeamSchema>;
+type CreateTeamData = z.infer<typeof createTeamSchema>;
 
 const TeamForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<createTeamData>({
+  } = useForm<CreateTeamData>({
     resolver: zodResolver(createTeamSchema),
   });
 
-  const onSubmit = (data: createTeamData) => {
-    //
+  const router = useRouter();
+
+  const onSubmit = async (data: CreateTeamData) => {
+    try {
+      const response = await apiClient.post<CreateTeamData>('api/team', data);
+      alert('チームを作成しました');
+      router.push('/');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      if (isAxiosError(error)) {
+        const { data } = error.response as { data: { error: string } };
+        alert(data.error);
+      }
+    }
   };
   return (
     <form
