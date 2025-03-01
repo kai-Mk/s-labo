@@ -1,27 +1,38 @@
 'use client';
 
 import type { TeamMemberData } from '@/types/teamMember';
-import React, { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import type { AxiosResponse } from 'axios';
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import { apiClient } from '@/lib/apiClient';
+import useSWR from 'swr';
 import AddTeamButton from './AddTeamButton';
 import styles from './teamDetails.module.scss';
 
 interface TeamProjectBoxProps {
   teamMemberData: TeamMemberData[];
   children: React.ReactNode;
+  userId: string | null;
 }
 
-const TeamProjectBox = ({ teamMemberData, children }: TeamProjectBoxProps) => {
+const TeamProjectBox = ({
+  teamMemberData,
+  children,
+  userId,
+}: TeamProjectBoxProps) => {
   const pathname = usePathname();
 
-  // TODO: clientコンポーネント用にteamMemberDataを呼び出すapi(app/api)を作成する必要がある。
+  const fetcher = async (url: string): Promise<TeamMemberData[]> => {
+    const response: AxiosResponse<TeamMemberData[]> = await apiClient.get(url);
+    return response.data;
+  };
+
+  const { data, error }: { data: TeamMemberData[]; error: string } = useSWR<
+    TeamMemberData[]
+  >(`/api/team-member/${userId}`, fetcher);
   return (
     <div className={styles.team_project_box}>
-      {teamMemberData.length === 0 && pathname === '/' ? (
-        <AddTeamButton />
-      ) : (
-        children
-      )}
+      {data.length === 0 && pathname === '/' ? <AddTeamButton /> : children}
     </div>
   );
 };

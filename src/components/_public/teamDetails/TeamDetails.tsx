@@ -26,7 +26,7 @@ const TeamDetails = async ({ children, userId }: TeamDetailsProps) => {
       </div>
       {/* チーム内の詳細画面 */}
       <div className={styles.team_project_content}>
-        <TeamProjectBox teamMemberData={teamMemberData}>
+        <TeamProjectBox teamMemberData={teamMemberData} userId={userId}>
           {children}
         </TeamProjectBox>
       </div>
