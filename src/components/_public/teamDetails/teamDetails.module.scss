@@ -15,6 +15,29 @@
 
     .left_bar_list {
       margin-top: 10px;
+
+      .left_bar_nav {
+        display: flex;
+        position: relative;
+        width: 80%;
+        height: 40px;
+        margin: 20px auto;
+        align-items: center;
+        justify-content: center;
+        padding-right: 20px;
+        border: 1px solid #5555;
+        color: #555;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+
+        &.selected_nav {
+          background-color: #b9cee1;
+        }
+
+        &:hover {
+          background-color: #b9cee1;
+        }
+      }
     }
   }
 

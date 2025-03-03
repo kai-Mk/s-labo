@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById';
 import { getServerSession } from 'next-auth';
@@ -19,16 +20,18 @@ const Sidebar = async () => {
         teamMemberData.length !== 0 &&
         teamMemberData.map((item) => (
           <div className={styles.sidebar_logo} key={item.team_member_id}>
-            <Image
-              src={`${avatarURL}${item.team.team_name}`}
-              alt="チームロゴ"
-              className={styles.sidebar_logo_img}
-              width={50}
-              height={50}
-              priority
-              unoptimized
-            />
-            <p className={styles.sidebar_logo_name}>{item.team.team_name}</p>
+            <Link href={`/team/${item.team.team_id}`}>
+              <Image
+                src={`${avatarURL}${item.team.team_name}`}
+                alt="チームロゴ"
+                className={styles.sidebar_logo_img}
+                width={50}
+                height={50}
+                priority
+                unoptimized
+              />
+              <p className={styles.sidebar_logo_name}>{item.team.team_name}</p>
+            </Link>
           </div>
         ))}
       <SidebarAddButton />

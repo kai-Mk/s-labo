@@ -3,10 +3,10 @@ import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById';
 
 export const GET = async (
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const { id } = params;
+    const { id } = await params;
     const teamMembers = await getTeamMembersById(id);
 
     return NextResponse.json(teamMembers);
