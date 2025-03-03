@@ -9,8 +9,6 @@ interface TeamDetailsProps {
 }
 
 const TeamDetails = async ({ children, userId }: TeamDetailsProps) => {
-  const teamMemberData = await getTeamMembersById(userId);
-
   return (
     <div className={styles.team_project_container}>
       <div className={styles.team_project_left_bar}>
@@ -26,9 +24,7 @@ const TeamDetails = async ({ children, userId }: TeamDetailsProps) => {
       </div>
       {/* チーム内の詳細画面 */}
       <div className={styles.team_project_content}>
-        <TeamProjectBox teamMemberData={teamMemberData} userId={userId}>
-          {children}
-        </TeamProjectBox>
+        <TeamProjectBox userId={userId}>{children}</TeamProjectBox>
       </div>
     </div>
   );
