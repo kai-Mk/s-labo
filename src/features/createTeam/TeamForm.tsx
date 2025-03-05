@@ -7,7 +7,7 @@ import InputField from '@/components/inputField/InputField';
 import SendButton from '@/components/sendButton/SendButton';
 import { apiClient } from '@/lib/apiClient';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AxiosError, isAxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -16,7 +16,13 @@ const createTeamSchema = z.object({
   team_description: z.string().nullable(),
 });
 
+// 入力フォームのデータ型
 type CreateTeamData = z.infer<typeof createTeamSchema>;
+
+// チーム作成APIのレスポンスデータ型
+interface CreateTeamResponse extends CreateTeamData {
+  team_id: number;
+}
 
 const TeamForm = () => {
   const {
@@ -29,11 +35,13 @@ const TeamForm = () => {
 
   const router = useRouter();
 
+  // チーム作成APIを呼び出す関数
   const onSubmit = async (data: CreateTeamData) => {
     try {
-      const response = await apiClient.post<
-        CreateTeamData & { team_id: number }
-      >('api/team', data);
+      const response = await apiClient.post<CreateTeamResponse>(
+        'api/team',
+        data,
+      );
       alert('チームを作成しました');
       router.push(`/team/${response.data.team_id}`);
       router.refresh();

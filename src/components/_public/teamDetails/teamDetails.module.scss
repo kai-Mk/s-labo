@@ -25,17 +25,17 @@
         align-items: center;
         justify-content: center;
         padding-right: 20px;
-        border: 1px solid #5555;
-        color: #555;
-        border-radius: 50px;
+        border: 1px solid $color-text;
+        color: $color-text;
+        border-radius: 40px;
         transition: all 0.3s ease;
 
         &.selected_nav {
-          background-color: #b9cee1;
+          background-color: $color-sub-button;
         }
 
         &:hover {
-          background-color: #b9cee1;
+          background-color: $color-sub-button;
         }
       }
     }
