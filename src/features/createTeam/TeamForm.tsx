@@ -34,6 +34,7 @@ const TeamForm = () => {
       const response = await apiClient.post<CreateTeamData>('api/team', data);
       alert('チームを作成しました');
       router.push('/');
+      router.refresh();
       return response.data;
     } catch (error) {
       console.error(error);
