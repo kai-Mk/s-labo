@@ -38,7 +38,7 @@ export const POST = async (req: NextRequest) => {
         },
       });
 
-      const newMember = await prisma.teamMember.create({
+      await prisma.teamMember.create({
         data: {
           user_id: Number(userId),
           team_id: newTeam.team_id,
@@ -46,10 +46,17 @@ export const POST = async (req: NextRequest) => {
         },
       });
 
-      return { newTeam, newMember };
+      return newTeam;
     });
 
-    return NextResponse.json(result, { status: 201 });
+    return NextResponse.json(
+      {
+        team_id: result.team_id,
+        team_name: result.team_name,
+        team_description: result.team_description,
+      },
+      { status: 201 },
+    );
   } catch (error) {
     console.error('チーム作成時エラー', error);
     return NextResponse.json(

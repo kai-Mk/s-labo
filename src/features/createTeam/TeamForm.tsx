@@ -31,9 +31,11 @@ const TeamForm = () => {
 
   const onSubmit = async (data: CreateTeamData) => {
     try {
-      const response = await apiClient.post<CreateTeamData>('api/team', data);
+      const response = await apiClient.post<
+        CreateTeamData & { team_id: number }
+      >('api/team', data);
       alert('チームを作成しました');
-      router.push('/');
+      router.push(`/team/${response.data.team_id}`);
       router.refresh();
       return response.data;
     } catch (error) {
