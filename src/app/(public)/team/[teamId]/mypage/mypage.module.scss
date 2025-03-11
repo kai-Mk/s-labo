@@ -1,0 +1,40 @@
+@use "@/styles/global/index.scss" as *;
+
+.team_mypage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+
+  .team_mypage_left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .mypage_todo {
+      flex: 1;
+    }
+
+    .team_mypage_left_line {
+      width: 100%;
+      height: 1px;
+      background-color: $color-line;
+      margin: 20px 0;
+    }
+
+    .mypage_leaving_report {
+      flex: 1;
+    }
+  }
+
+  .team_mypage_center_line {
+    width: 1px;
+    height: 100%;
+    background-color: $color-line;
+    margin: 0 20px;
+  }
+
+  .team_mypage_right {
+    flex: 1;
+  }
+}

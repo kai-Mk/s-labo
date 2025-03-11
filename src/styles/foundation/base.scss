@@ -20,6 +20,11 @@ body {
 
 a {
   text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
 }
 
 ul,
@@ -30,7 +35,4 @@ li {
 input,
 textarea {
   border: none;
-  &:focus {
-    outline: none;
-  }
 }
