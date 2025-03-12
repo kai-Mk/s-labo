@@ -1,4 +1,7 @@
 import React from 'react';
+import LeavingReportContainer from '@/features/mypage/components/LeavingReportContainer';
+import TimeBoxContainer from '@/features/mypage/components/TimeBoxContainer';
+import TodoContainer from '@/features/mypage/components/TodoContainer';
 import styles from './mypage.module.scss';
 
 const MyPage = () => {
@@ -6,14 +9,12 @@ const MyPage = () => {
     <div className={styles.team_mypage}>
       {/* 退勤とtodo */}
       <div className={styles.team_mypage_left}>
-        <div className={styles.mypage_todo}>todoリスト</div>
-        <div className={styles.team_mypage_left_line} />
-        <div className={styles.mypage_leaving_report}>退勤報告</div>
+        <TodoContainer />
       </div>
       <div className={styles.team_mypage_center_line} />
       {/* タイムボクシング */}
       <div className={styles.team_mypage_right}>
-        <div className={styles.mypage_time_boxing}>タイムボクシング</div>
+        <TimeBoxContainer />
       </div>
     </div>
   );

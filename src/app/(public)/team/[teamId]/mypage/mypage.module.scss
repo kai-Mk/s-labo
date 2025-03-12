@@ -1,5 +1,47 @@
 @use "@/styles/global/index.scss" as *;
 
+@mixin container-title {
+  font-size: $font-size-md;
+  font-weight: 700;
+}
+
+@mixin todo-checkbox {
+  // チェックボックス
+  .todo_checkbox_label {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    input {
+      display: none;
+
+      &:checked ~ svg .path {
+        stroke-dasharray: 70.5097 9999999;
+        stroke-dashoffset: -262.2723;
+      }
+    }
+
+    svg {
+      overflow: visible;
+    }
+  }
+
+  .path {
+    fill: none;
+    stroke: #333;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition:
+      stroke-dasharray 0.5s ease,
+      stroke-dashoffset 0.5s ease;
+    stroke-dasharray: 241 9999999;
+    stroke-dashoffset: 0;
+  }
+}
+
 .team_mypage {
   display: flex;
   width: 100%;
@@ -7,23 +49,52 @@
   justify-content: space-between;
 
   .team_mypage_left {
-    display: flex;
     flex: 1;
-    flex-direction: column;
 
+    // Todoリスト
     .mypage_todo {
-      flex: 1;
-    }
+      .mypage_todo_title {
+        @include container-title;
+      }
 
-    .team_mypage_left_line {
-      width: 100%;
-      height: 1px;
-      background-color: $color-line;
-      margin: 20px 0;
-    }
+      .mypage_todo_list {
+        margin-top: 10px;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
 
-    .mypage_leaving_report {
-      flex: 1;
+        @include scrollbar;
+
+        .todo_item {
+          display: flex;
+          width: 85%;
+          margin: 20px auto;
+          padding: 10px 20px;
+          box-shadow: $box-shadow-list;
+          align-items: center;
+          border-radius: 10px;
+
+          @include todo-checkbox;
+
+          .todo_text {
+            flex: 8;
+            margin-left: 8px;
+            font-size: $font-size-sm;
+          }
+
+          .todo_category {
+            display: flex;
+            width: fit-content;
+            padding: 5px 10px;
+            color: $color-text;
+            text-align: right;
+            font-size: $font-size-xs;
+            border-radius: 20px;
+            border: 1px solid $color-text;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
     }
   }
 
@@ -36,5 +107,12 @@
 
   .team_mypage_right {
     flex: 1;
+
+    // タイムボックス
+    .mypage_time_box {
+      .mypage_time_box_title {
+        @include container-title;
+      }
+    }
   }
 }
