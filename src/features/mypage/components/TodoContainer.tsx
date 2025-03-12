@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
+import AddIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import AddButton from './Todo/AddButton';
 import TodoItem from './Todo/TodoItem';
 
 const TodoContainer = () => {
@@ -16,6 +18,7 @@ const TodoContainer = () => {
         <TodoItem />
         <TodoItem />
       </ul>
+      <AddButton />
     </div>
   );
 };

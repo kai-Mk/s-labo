@@ -20,6 +20,7 @@
       &:checked ~ svg .path {
         stroke-dasharray: 70.5097 9999999;
         stroke-dashoffset: -262.2723;
+        stroke: $color-add-button;
       }
     }
 
@@ -53,6 +54,8 @@
 
     // Todoリスト
     .mypage_todo {
+      position: relative;
+
       .mypage_todo_title {
         @include container-title;
       }
@@ -94,6 +97,18 @@
             justify-content: center;
           }
         }
+      }
+
+      .mypage_todo_add_button {
+        position: absolute;
+        right: 15px;
+        bottom: 5px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background-color: $color-add-button;
+        color: $color-white;
+        border-radius: 50px;
       }
     }
   }
