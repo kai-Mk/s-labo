@@ -6,18 +6,13 @@ import CreateIcon from '@mui/icons-material/CreateOutlined';
 import { IconButton } from '@mui/material';
 import AddButton from './Todo/AddButton';
 import TodoItem from './Todo/TodoItem';
+import TodoList from './Todo/TodoList';
 
 const TodoContainer = () => {
   return (
     <div className={styles.mypage_todo}>
       <h3 className={styles.mypage_todo_title}>todoリスト</h3>
-      <ul className={styles.mypage_todo_list}>
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-      </ul>
-      <AddButton />
+      <TodoList />
       <div className={styles.mypage_todo_comment}>
         <div className={styles.comment_box_head}>
           <h4 className={styles.comment_box_title}>コメント</h4>
