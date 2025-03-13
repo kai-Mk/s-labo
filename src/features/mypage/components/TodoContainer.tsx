@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import AddIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import AddButton from './Todo/AddButton';
@@ -13,12 +14,9 @@ const TodoContainer = () => {
         <TodoItem />
         <TodoItem />
         <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
       </ul>
       <AddButton />
+      <div className={styles.mypage_todo_comment}>コメント</div>
     </div>
   );
 };
