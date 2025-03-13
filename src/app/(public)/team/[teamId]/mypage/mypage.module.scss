@@ -137,8 +137,15 @@
 
         @include scrollbar;
 
-        .comment_box_title {
-          font-size: $font-size-sm;
+        .comment_box_head {
+          display: flex;
+          align-items: center;
+          height: 25px;
+          .comment_box_title {
+            padding: 0;
+            font-size: $font-size-sm;
+            line-height: 1;
+          }
         }
       }
     }
