@@ -19,7 +19,6 @@ const NavButton = ({ path, label }: NavButtonProps) => {
         className={`${styles.left_bar_nav} ${isSelected && styles.selected_nav} `}
       >
         {label}
-        <ArrowIcon sx={{ position: 'absolute', right: '8px' }} />
       </Link>
     </li>
   );
