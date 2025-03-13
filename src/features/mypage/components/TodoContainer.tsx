@@ -16,7 +16,9 @@ const TodoContainer = () => {
         <TodoItem />
       </ul>
       <AddButton />
-      <div className={styles.mypage_todo_comment}>コメント</div>
+      <div className={styles.mypage_todo_comment}>
+        <h4 className={styles.comment_box_title}>コメント</h4>
+      </div>
     </div>
   );
 };

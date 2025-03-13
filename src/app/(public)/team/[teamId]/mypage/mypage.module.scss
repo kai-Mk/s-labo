@@ -78,6 +78,7 @@
           box-shadow: $box-shadow-list;
           align-items: center;
           border-radius: 10px;
+          cursor: default;
 
           @include todo-checkbox;
 
@@ -132,9 +133,13 @@
         max-height: 20%;
         overflow-y: auto;
         margin-top: 10px;
-        border: 1px solid $color-text;
+        border: 1px solid #ddd;
 
         @include scrollbar;
+
+        .comment_box_title {
+          font-size: $font-size-sm;
+        }
       }
     }
   }
