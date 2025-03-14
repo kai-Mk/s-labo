@@ -15,8 +15,13 @@ const TodoList = () => {
         <TodoItem />
         <TodoItem />
         <TodoItem />
+        <TodoItem />
+        <TodoItem />
       </ul>
-      <AddButton onClick={() => setIsInputField(!isInputField)} />
+      <AddButton
+        isInputField={isInputField}
+        onClick={() => setIsInputField(!isInputField)}
+      />
     </>
   );
 };
