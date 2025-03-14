@@ -1,10 +1,8 @@
 'use client';
 
 import type { TeamMemberData } from '@/types/teamMember';
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import { usePathname } from 'next/navigation';
-import ArrowIcon from '@mui/icons-material/ArrowForwardIos';
 import NavButton from './NavButton';
 import styles from './teamDetails.module.scss';
 
@@ -26,8 +24,15 @@ const TeamProjectNav = ({ teamMemberData }: TeamProjectNavProps) => {
         {teamMemberDataByTeamId?.team.team_name}
       </h2>
       <ul className={styles.left_bar_list}>
-        <NavButton path={`/team/${selectTeamId}`} label="共有スペース" />
-        <NavButton path={`/team/${selectTeamId}/mypage`} label="マイページ" />
+        {!pathName.includes('create') ? (
+          <>
+            <NavButton path={`/team/${selectTeamId}`} label="共有スペース" />
+            <NavButton
+              path={`/team/${selectTeamId}/mypage`}
+              label="マイページ"
+            />
+          </>
+        ) : null}
       </ul>
     </div>
   );
