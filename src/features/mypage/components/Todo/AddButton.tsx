@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import AddIcon from '@mui/icons-material/AddBoxOutlined';
 import CloseIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
