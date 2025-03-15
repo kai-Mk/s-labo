@@ -1,5 +1,7 @@
 'use client';
 
+import type { ProjectData } from '@/types/project';
+import type { TaskCategoryData } from '@/types/taskCategory';
 import React, { useEffect, useRef } from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,9 +19,15 @@ type CreateTodoData = z.infer<typeof createTodoSchema>;
 
 interface TodoInputFieldProps {
   isInputField: boolean;
+  taskCategories: TaskCategoryData[];
+  projects: ProjectData[];
 }
 
-const TodoInputField = ({ isInputField }: TodoInputFieldProps) => {
+const TodoInputField = ({
+  isInputField,
+  taskCategories,
+  projects,
+}: TodoInputFieldProps) => {
   // インプットフィールドにフォーカスさせる
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -75,9 +83,36 @@ const TodoInputField = ({ isInputField }: TodoInputFieldProps) => {
           {...register('task_category_id')}
         >
           {/* optionのバリューはカテゴリーIDを指定 */}
-          <option value={1}>デザイン</option>
-          <option value={2}>コーディング</option>
-          <option value={3}>その他</option>
+          {taskCategories &&
+            taskCategories.length !== 0 &&
+            taskCategories.map((taskItem) =>
+              // タスクが「プロジェクト」の場合サブフィールドとしてプロジェクトを選択
+              taskItem.task_category_name === 'プロジェクト' ? (
+                <optgroup
+                  key={taskItem.task_category_id}
+                  label={taskItem.task_category_name}
+                  id={String(taskItem.task_category_id)}
+                >
+                  {projects &&
+                    projects.length !== 0 &&
+                    projects.map((projectItem) => (
+                      <option
+                        key={projectItem.project_id}
+                        value={projectItem.project_id}
+                      >
+                        {projectItem.project_name}
+                      </option>
+                    ))}
+                </optgroup>
+              ) : (
+                <option
+                  key={taskItem.task_category_id}
+                  value={taskItem.task_category_id}
+                >
+                  {taskItem.task_category_name}
+                </option>
+              ),
+            )}
         </select>
         <IconButton type="submit">
           <SendIcon className={styles.todo_add_button} />

@@ -1,15 +1,15 @@
 import React from 'react';
-import LeavingReportContainer from '@/features/mypage/components/LeavingReportContainer';
 import TimeBoxContainer from '@/features/mypage/components/TimeBoxContainer';
 import TodoContainer from '@/features/mypage/components/TodoContainer';
 import styles from './mypage.module.scss';
 
-const MyPage = () => {
+const MyPage = async ({ params }: { params: Promise<{ teamId: string }> }) => {
+  const { teamId } = await params;
   return (
     <div className={styles.team_mypage}>
-      {/* 退勤とtodo */}
+      {/* todo */}
       <div className={styles.team_mypage_left}>
-        <TodoContainer />
+        <TodoContainer teamId={teamId} />
       </div>
       <div className={styles.team_mypage_center_line} />
       {/* タイムボクシング */}
