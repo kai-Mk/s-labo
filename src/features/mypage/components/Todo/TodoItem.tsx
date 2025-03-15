@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import DehazeIcon from '@mui/icons-material/Dehaze';
+import { IconButton } from '@mui/material';
 
 const TodoItem = () => {
   return (
@@ -17,7 +18,9 @@ const TodoItem = () => {
       </label>
       <span className={styles.todo_text}>タスク名</span>
       <span className={styles.todo_category}>カテゴリー</span>
-      <DehazeIcon className={styles.todo_action_menu} />
+      <IconButton>
+        <DehazeIcon className={styles.todo_action_menu} />
+      </IconButton>
     </li>
   );
 };
