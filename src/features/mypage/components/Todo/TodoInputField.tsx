@@ -121,7 +121,7 @@ const TodoInputField = ({
                     projects.map((projectItem) => (
                       <option
                         key={projectItem.project_id}
-                        value={taskItem.task_category_id}
+                        value={`${taskItem.task_category_id}-${projectItem.project_id}`}
                         id={String(projectItem.project_id)}
                       >
                         {projectItem.project_name}
