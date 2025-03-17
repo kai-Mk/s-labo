@@ -10,10 +10,10 @@ import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import CategorySelectBox from './CategorySelectBox';
 
 const createTodoSchema = z.object({
   todo_description: z.string().min(1, 'タスク内容を入力してください'),
-  category_name: z.string(),
   // 文字列の数字できた場合にcoerceで自動で数値型に変更
   task_category_id: z.coerce.number(),
   project_id: z.coerce.number().nullable(),
@@ -42,7 +42,6 @@ const TodoInputField = ({
   }, [isInputField]);
 
   // react-hook-form
-  const FIRST_PROJECT_NAME = projects[0].project_name;
   const FIRST_PROJECT_ID = projects[0].project_id;
   const {
     register,
@@ -53,7 +52,6 @@ const TodoInputField = ({
     resolver: zodResolver(createTodoSchema),
     defaultValues: {
       todo_description: '',
-      category_name: FIRST_PROJECT_NAME,
       task_category_id: 1,
       project_id: FIRST_PROJECT_ID,
     },
@@ -99,47 +97,11 @@ const TodoInputField = ({
             inputRef.current = e;
           }}
         />
-        {/* TODO:選択されたのがプロジェクトの場合にプロジェクト名が表示されるようにする */}
-        <select
-          id="category"
-          className={styles.todo_select_category}
-          {...register('category_name')}
+        <CategorySelectBox
           onChange={handleCategoryChange}
-        >
-          {/* optionのバリューはカテゴリーIDを指定 */}
-          {taskCategories &&
-            taskCategories.length !== 0 &&
-            taskCategories.map((taskItem) =>
-              // タスクが「プロジェクト」の場合サブフィールドとしてプロジェクトを選択
-              taskItem.task_category_name === 'プロジェクト' ? (
-                <optgroup
-                  key={taskItem.task_category_id}
-                  label={taskItem.task_category_name}
-                >
-                  {projects &&
-                    projects.length !== 0 &&
-                    projects.map((projectItem) => (
-                      <option
-                        key={projectItem.project_id}
-                        value={projectItem.project_name}
-                        data-category-id={taskItem.task_category_id}
-                        data-project-id={projectItem.project_id}
-                      >
-                        {projectItem.project_name}
-                      </option>
-                    ))}
-                </optgroup>
-              ) : (
-                <option
-                  key={taskItem.task_category_id}
-                  value={taskItem.task_category_name}
-                  data-category-id={taskItem.task_category_id}
-                >
-                  {taskItem.task_category_name}
-                </option>
-              ),
-            )}
-        </select>
+          taskCategories={taskCategories}
+          projects={projects}
+        />
         <IconButton type="submit">
           <SendIcon className={styles.todo_add_button} />
         </IconButton>
