@@ -51,7 +51,7 @@ const TodoInputField = ({
   }, [isInputField]);
 
   // react-hook-form
-  const FIRST_PROJECT_ID = projects[0].project_id;
+  const FIRST_PROJECT_ID = projects[0]?.project_id;
   const {
     register,
     handleSubmit,
@@ -78,7 +78,7 @@ const TodoInputField = ({
     setValue('project_id', projectId);
   };
 
-  const teamId = useParams();
+  const { teamId } = useParams();
   const onSubmit = async (data: CreateTodoData) => {
     // TodoのAPI処理
     try {

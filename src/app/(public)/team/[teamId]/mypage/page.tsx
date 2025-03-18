@@ -1,10 +1,16 @@
 import React from 'react';
 import TimeBoxContainer from '@/features/mypage/components/TimeBoxContainer';
 import TodoContainer from '@/features/mypage/components/TodoContainer';
+import { currentTeamMember } from '@/lib/currentTeamMember';
+import { getTodosByTeamMemberId } from '@/services/todo/getTodosByTeamMemberId';
 import styles from './mypage.module.scss';
 
 const MyPage = async ({ params }: { params: Promise<{ teamId: string }> }) => {
+  // チームメンバーIDからtodoリストを取得
   const { teamId } = await params;
+  const teamMember = await currentTeamMember(Number(teamId));
+  const teamMemberId = teamMember!.team_member_id;
+  const todos = await getTodosByTeamMemberId(teamMemberId);
   return (
     <div className={styles.team_mypage}>
       {/* todo */}

@@ -1,9 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { getTeamMembersById } from '@/services/teamMember/getTeamMembersById';
+import { currentTeamMember } from '@/lib/currentTeamMember';
 import { createTodo } from '@/services/todo/createTodo';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
 
 interface TodoRequestBody {
   todo_description: string;
@@ -15,16 +13,6 @@ interface TodoRequestBody {
 
 export const POST = async (req: NextRequest) => {
   try {
-    // ログイン中のユーザーIDを取得
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: 'ログインしてください' },
-        { status: 401 },
-      );
-    }
-
-    const currentUserId = session.user.id;
     // リクエストボディの取得
     const {
       todo_description,
@@ -35,9 +23,8 @@ export const POST = async (req: NextRequest) => {
     }: TodoRequestBody = (await req.json()) as TodoRequestBody;
 
     // チームメンバーIDを取得
-    const teamMemberId = (await getTeamMembersById(currentUserId)).find(
-      (item) => item.team_id === team_id,
-    )!.team_member_id;
+    const teamMembers = await currentTeamMember(team_id);
+    const teamMemberId: number = teamMembers!.team_member_id;
 
     const result = await createTodo({
       todo_description,
