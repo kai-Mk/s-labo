@@ -4,10 +4,13 @@ import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
 import type { ChangeEvent } from 'react';
 import React, { useEffect, useRef } from 'react';
+import { useParams } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
+import { apiClient } from '@/lib/apiClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
+import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import CategorySelectBox from './CategorySelectBox';
@@ -26,6 +29,12 @@ interface TodoInputFieldProps {
   isInputField: boolean;
   taskCategories: TaskCategoryData[];
   projects: ProjectData[];
+}
+
+// todo入力時のレスポンスのデータ型
+interface CreateTodoResponse extends CreateTodoData {
+  team_id: number;
+  todo_date: Date;
 }
 
 const TodoInputField = ({
@@ -69,8 +78,24 @@ const TodoInputField = ({
     setValue('project_id', projectId);
   };
 
+  const teamId = useParams();
   const onSubmit = async (data: CreateTodoData) => {
     // TodoのAPI処理
+    try {
+      const response = await apiClient.post<CreateTodoResponse>('api/todo', {
+        ...data,
+        team_id: Number(teamId),
+        todo_date: new Date().toISOString(),
+      });
+      alert('todoを作成しました');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      if (isAxiosError(error)) {
+        const { data } = error.response as { data: { error: string } };
+        alert(data.error);
+      }
+    }
   };
 
   return (
