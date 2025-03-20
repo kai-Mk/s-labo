@@ -10,12 +10,12 @@ const MyPage = async ({ params }: { params: Promise<{ teamId: string }> }) => {
   const { teamId } = await params;
   const teamMember = await currentTeamMember(Number(teamId));
   const teamMemberId = teamMember!.team_member_id;
-  const todos = await getTodosByTeamMemberId(teamMemberId);
+  const todosByTeamMemberId = await getTodosByTeamMemberId(teamMemberId);
   return (
     <div className={styles.team_mypage}>
       {/* todo */}
       <div className={styles.team_mypage_left}>
-        <TodoContainer teamId={teamId} />
+        <TodoContainer teamId={teamId} todos={todosByTeamMemberId} />
       </div>
       <div className={styles.team_mypage_center_line} />
       {/* タイムボクシング */}

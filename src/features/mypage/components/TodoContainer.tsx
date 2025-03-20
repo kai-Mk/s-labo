@@ -1,3 +1,4 @@
+import type { Todo } from '@/types/todo';
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import { getProjectsByTeamId } from '@/services/project/getProjectsByTeamId';
@@ -8,15 +9,20 @@ import TodoList from './Todo/TodoList';
 
 interface TodoContainerProps {
   teamId: string;
+  todos: Todo[];
 }
 
-const TodoContainer = async ({ teamId }: TodoContainerProps) => {
+const TodoContainer = async ({ teamId, todos }: TodoContainerProps) => {
   const taskCategories = await getTaskCategory();
   const projectsByTeamId = await getProjectsByTeamId(teamId);
   return (
     <div className={styles.mypage_todo}>
       <h3 className={styles.mypage_todo_title}>todoリスト</h3>
-      <TodoList taskCategories={taskCategories} projects={projectsByTeamId} />
+      <TodoList
+        taskCategories={taskCategories}
+        projects={projectsByTeamId}
+        todos={todos}
+      />
       <div className={styles.mypage_todo_comment}>
         <div className={styles.comment_box_head}>
           <h4 className={styles.comment_box_title}>コメント</h4>

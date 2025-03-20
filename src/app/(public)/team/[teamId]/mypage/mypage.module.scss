@@ -93,16 +93,17 @@
           }
 
           .todo_category {
-            display: flex;
             width: fit-content;
+            max-width: 110px;
             padding: 5px 10px;
             color: $color-text;
-            text-align: right;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-size: $font-size-xs;
             border-radius: 20px;
             border: 1px solid $color-text;
-            align-items: center;
-            justify-content: center;
             margin-right: 5px;
           }
 

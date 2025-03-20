@@ -4,7 +4,7 @@ import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
 import type { ChangeEvent } from 'react';
 import React, { useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import { apiClient } from '@/lib/apiClient';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -79,6 +79,7 @@ const TodoInputField = ({
   };
 
   const { teamId } = useParams();
+  const router = useRouter();
   const onSubmit = async (data: CreateTodoData) => {
     // TodoのAPI処理
     try {
@@ -88,6 +89,7 @@ const TodoInputField = ({
         todo_date: new Date().toISOString(),
       });
       alert('todoを作成しました');
+      router.refresh();
       return response.data;
     } catch (error) {
       console.error(error);

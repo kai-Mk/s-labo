@@ -3,7 +3,12 @@ import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import { IconButton } from '@mui/material';
 
-const TodoItem = () => {
+interface TodoItemProps {
+  task: string;
+  category: string;
+}
+
+const TodoItem = ({ task, category }: TodoItemProps) => {
   return (
     <li className={styles.todo_item}>
       <label className={styles.todo_checkbox_label}>
@@ -16,8 +21,8 @@ const TodoItem = () => {
           ></path>
         </svg>
       </label>
-      <span className={styles.todo_text}>タスク名</span>
-      <span className={styles.todo_category}>カテゴリー</span>
+      <span className={styles.todo_text}>{task}</span>
+      <span className={styles.todo_category}>{category}</span>
       <IconButton>
         <DehazeIcon className={styles.todo_action_menu} />
       </IconButton>
