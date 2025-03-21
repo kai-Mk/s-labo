@@ -75,6 +75,7 @@
 
         .todo_item {
           display: flex;
+          position: relative;
           width: 97%;
           height: 45px;
           margin: 0 auto 10px;
@@ -107,8 +108,20 @@
             margin-right: 5px;
           }
 
-          .todo_action_menu {
+          .action_menu_button {
             cursor: pointer;
+          }
+
+          .action_menu_box {
+            // display: none;
+            position: absolute;
+            top: 0;
+            right: -80px;
+            z-index: 2000;
+            width: 100px;
+            height: 50px;
+            box-shadow: $box-shadow;
+            background-color: $color-white;
           }
         }
 

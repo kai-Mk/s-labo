@@ -1,7 +1,8 @@
+'use client';
+
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
-import DehazeIcon from '@mui/icons-material/Dehaze';
-import { IconButton } from '@mui/material';
+import ActionMenu from './ActionMenu';
 
 interface TodoItemProps {
   task: string;
@@ -23,9 +24,7 @@ const TodoItem = ({ task, category }: TodoItemProps) => {
       </label>
       <span className={styles.todo_text}>{task}</span>
       <span className={styles.todo_category}>{category}</span>
-      <IconButton>
-        <DehazeIcon className={styles.todo_action_menu} />
-      </IconButton>
+      <ActionMenu />
     </li>
   );
 };
