@@ -63,7 +63,6 @@
       }
 
       .mypage_todo_list {
-        position: relative;
         width: 100%;
         height: auto;
         margin: 10px auto;
@@ -108,20 +107,40 @@
             margin-right: 5px;
           }
 
-          .action_menu_button {
-            cursor: pointer;
-          }
+          .action_menu {
+            position: relative;
+            .action_menu_button {
+              cursor: pointer;
+            }
 
-          .action_menu_box {
-            // display: none;
-            position: absolute;
-            top: 0;
-            right: -80px;
-            z-index: 2000;
-            width: 100px;
-            height: 50px;
-            box-shadow: $box-shadow;
-            background-color: $color-white;
+            .action_menu_list {
+              opacity: 0;
+              pointer-events: none;
+              display: flex;
+              flex-direction: column;
+              position: absolute;
+              top: 50%;
+              left: -80px;
+              z-index: 2000;
+              width: 80px;
+              height: 50px;
+              box-shadow: $box-shadow;
+              transform: translateY(-50%) scale(0.9);
+              background-color: $color-white;
+              transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+
+              .action_menu_item {
+                height: 50%;
+              }
+
+              &.active {
+                pointer-events: auto;
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+              }
+            }
           }
         }
 
