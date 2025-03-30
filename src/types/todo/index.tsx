@@ -30,3 +30,8 @@ export interface Todo {
   task_category: TaskCategory;
   project: Project | null;
 }
+
+export interface EnrichTodo extends Todo {
+  isActionMenu: boolean;
+  isUpdateField: boolean;
+}

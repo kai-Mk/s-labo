@@ -1,15 +1,27 @@
 'use client';
 
+import type { EnrichTodo } from '@/types/todo';
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import ActionMenu from './ActionMenu';
 
 interface TodoItemProps {
+  todoId: number;
+  isUpdateField: boolean;
+  isActionMenu: boolean;
   task: string;
   category: string;
+  setEnrichedTodos: React.Dispatch<React.SetStateAction<EnrichTodo[]>>;
 }
 
-const TodoItem = ({ task, category }: TodoItemProps) => {
+const TodoItem = ({
+  todoId,
+  isUpdateField,
+  isActionMenu,
+  task,
+  category,
+  setEnrichedTodos,
+}: TodoItemProps) => {
   return (
     <li className={styles.todo_item}>
       <label className={styles.todo_checkbox_label}>
@@ -24,7 +36,11 @@ const TodoItem = ({ task, category }: TodoItemProps) => {
       </label>
       <span className={styles.todo_text}>{task}</span>
       <span className={styles.todo_category}>{category}</span>
-      <ActionMenu />
+      <ActionMenu
+        setEnrichedTodos={setEnrichedTodos}
+        todoId={todoId}
+        isActionMenu={isActionMenu}
+      />
     </li>
   );
 };
