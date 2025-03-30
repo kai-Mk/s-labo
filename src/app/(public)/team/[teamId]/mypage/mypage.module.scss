@@ -161,6 +161,63 @@
           }
         }
 
+        // todo更新時のスタイル
+        .todo_update_field {
+          display: flex;
+          width: 97%;
+          height: 45px;
+          margin: 0 auto 10px;
+          padding: 0 20px;
+          box-shadow: $box-shadow-list;
+          align-items: center;
+          border-radius: 10px;
+          cursor: default;
+          transition: all 0.5s ease;
+
+          .todo_form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            .todo_input {
+              flex: 8;
+              width: 100%;
+              height: 30px;
+              margin: 0 5px;
+              border-radius: 5px;
+              padding: 5px 8px;
+              font-size: $font-size-xs;
+              box-shadow: inset 0 0 8px 0 $color-sub-button;
+
+              &.error_input {
+                box-shadow: inset 0 0 8px 0 $color-error;
+
+                &::placeholder {
+                  color: $color-error;
+                }
+              }
+            }
+
+            .todo_select_category {
+              display: flex;
+              max-width: 85px;
+              width: 100%;
+              padding: 2px;
+              cursor: pointer;
+              color: $color-text;
+              font-size: $font-size-xs;
+              border-radius: 20px;
+              border: 1px solid $color-text;
+              align-items: center;
+              justify-content: center;
+              margin-right: 5px;
+            }
+
+            .todo_add_button {
+              cursor: pointer;
+            }
+          }
+        }
+
         // Todo入力時のスタイル
         .todo_input_field {
           display: flex;

@@ -22,15 +22,19 @@ const ActionMenu = ({
   const handleActionMenu = () => {
     setEnrichedTodos((prevTodos) => updateActionMenu(prevTodos, todoId));
   };
+
   // 編集ボタン押した処理
   const handleUpdate = () => {
     // 処理
     setEnrichedTodos((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.todo_id === todoId ? { ...todo, isUpdateField: true } : todo,
+        todo.todo_id === todoId
+          ? { ...todo, isUpdateField: true, isActionMenu: false }
+          : todo,
       ),
     );
   };
+
   return (
     <div className={styles.action_menu}>
       <IconButton onClick={() => handleActionMenu()}>
