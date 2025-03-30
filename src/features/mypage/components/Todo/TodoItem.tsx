@@ -53,6 +53,7 @@ const TodoItem = ({
             setEnrichedTodos={setEnrichedTodos}
             todoId={todoId}
             isActionMenu={isActionMenu}
+            task={task}
           />
         </li>
       )}

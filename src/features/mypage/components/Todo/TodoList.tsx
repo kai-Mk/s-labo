@@ -32,25 +32,25 @@ const TodoList = ({ taskCategories, projects, todos }: TodoListProps) => {
           taskCategories={taskCategories}
           projects={projects}
         />
-        {enrichedTodos &&
-          enrichedTodos.length !== 0 &&
-          enrichedTodos.map((item) => (
-            <TodoItem
-              key={item.todo_id}
-              todoId={item.todo_id}
-              isUpdateField={item.isUpdateField}
-              isActionMenu={item.isActionMenu}
-              taskCategories={taskCategories}
-              projects={projects}
-              task={item.todo_description}
-              category={
-                item.task_category_id === 1
-                  ? item.project!.project_name
-                  : item.task_category.task_category_name
-              }
-              setEnrichedTodos={setEnrichedTodos}
-            />
-          ))}
+        {enrichedTodos && enrichedTodos.length !== 0
+          ? enrichedTodos.map((item) => (
+              <TodoItem
+                key={item.todo_id}
+                todoId={item.todo_id}
+                isUpdateField={item.isUpdateField}
+                isActionMenu={item.isActionMenu}
+                taskCategories={taskCategories}
+                projects={projects}
+                task={item.todo_description}
+                category={
+                  item.task_category_id === 1 && projects.length !== 0
+                    ? item.project!.project_name
+                    : item.task_category.task_category_name
+                }
+                setEnrichedTodos={setEnrichedTodos}
+              />
+            ))
+          : null}
       </ul>
       <AddButton
         isInputField={isInputField}

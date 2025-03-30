@@ -5,6 +5,7 @@ export const getTodosByTeamMemberId = async (teamMemberId: number) => {
     const todos = await prisma.todo.findMany({
       where: {
         team_member_id: teamMemberId,
+        deleted_at: null,
       },
       include: {
         task_category: true,

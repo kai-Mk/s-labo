@@ -32,18 +32,18 @@ const CategorySelectBox = ({
               label={taskItem.task_category_name}
             >
               {/* プロジェクトの配列をmap関数で繰り返す */}
-              {projects &&
-                projects.length !== 0 &&
-                projects.map((projectItem) => (
-                  <option
-                    key={projectItem.project_id}
-                    value={projectItem.project_name}
-                    data-category-id={taskItem.task_category_id}
-                    data-project-id={projectItem.project_id}
-                  >
-                    {projectItem.project_name}
-                  </option>
-                ))}
+              {projects && projects.length !== 0
+                ? projects.map((projectItem) => (
+                    <option
+                      key={projectItem.project_id}
+                      value={projectItem.project_name}
+                      data-category-id={taskItem.task_category_id}
+                      data-project-id={projectItem.project_id}
+                    >
+                      {projectItem.project_name}
+                    </option>
+                  ))
+                : null}
             </optgroup>
           ) : (
             <option
