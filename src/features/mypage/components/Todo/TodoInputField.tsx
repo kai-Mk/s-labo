@@ -115,8 +115,8 @@ const TodoInputField = ({
         <input
           type="text"
           id="task"
-          className={styles.todo_input}
-          placeholder="タスクを入力"
+          className={`${styles.todo_input} ${errors?.todo_description && styles.error_input}`}
+          placeholder={`${errors?.todo_description ? errors?.todo_description?.message : 'タスクを入力'}`}
           {...register('todo_description')}
           // refとregisterを併用するための処理
           ref={(e) => {

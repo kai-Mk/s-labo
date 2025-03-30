@@ -19,7 +19,7 @@ const ActionMenu = () => {
         className={`${styles.action_menu_list} ${isActionMenu ? styles.active : ''}`}
       >
         <li className={styles.action_menu_item}>編集</li>
-        <li className={styles.action_menu_item}>削除</li>
+        <li className={`${styles.action_menu_item} ${styles.delete}`}>削除</li>
       </ul>
     </div>
   );
