@@ -2,6 +2,7 @@
 
 import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
+import type { EnrichTodo, Todo } from '@/types/todo';
 import type { ChangeEvent } from 'react';
 import React, { useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -13,6 +14,7 @@ import { IconButton } from '@mui/material';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { enrichTodo } from '../../utils/enrichTodos';
 import CategorySelectBox from './CategorySelectBox';
 
 const createTodoSchema = z.object({
@@ -29,18 +31,16 @@ interface TodoInputFieldProps {
   isInputField: boolean;
   taskCategories: TaskCategoryData[];
   projects: ProjectData[];
-}
-
-// todo入力時のレスポンスのデータ型
-interface CreateTodoResponse extends CreateTodoData {
-  team_id: number;
-  todo_date: Date;
+  setEnrichedTodos: React.Dispatch<React.SetStateAction<EnrichTodo[]>>;
+  setIsInputField: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TodoInputField = ({
   isInputField,
   taskCategories,
   projects,
+  setEnrichedTodos,
+  setIsInputField,
 }: TodoInputFieldProps) => {
   // 「タスクを追加する」を押したらインプットフィールドにフォーカスさせる
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,19 +51,25 @@ const TodoInputField = ({
   }, [isInputField]);
 
   // react-hook-form
-  const FIRST_PROJECT_ID = projects[0]?.project_id;
+  const FIRST_PROJECT_ID = projects[0]?.project_id ?? null;
+  // タスクカテゴリーIDでプロジェクトがない場合は必然的に個人タスクのID「2」が適用される
+  const TASK_CATEGORY_ID = FIRST_PROJECT_ID ? 1 : 2;
+
+  const initialFormValues: CreateTodoData = {
+    todo_description: '',
+    task_category_id: TASK_CATEGORY_ID,
+    project_id: FIRST_PROJECT_ID,
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<CreateTodoData>({
     resolver: zodResolver(createTodoSchema),
-    defaultValues: {
-      todo_description: '',
-      task_category_id: 1,
-      project_id: FIRST_PROJECT_ID,
-    },
+    defaultValues: initialFormValues,
   });
 
   // プロジェクトを選択した際にプロジェクトIDもセットする
@@ -83,12 +89,16 @@ const TodoInputField = ({
   const onSubmit = async (data: CreateTodoData) => {
     // TodoのAPI処理
     try {
-      const response = await apiClient.post<CreateTodoResponse>('api/todo', {
+      const response = await apiClient.post<{ todo: Todo }>('api/todo', {
         ...data,
         team_id: Number(teamId),
         todo_date: new Date().toISOString(),
       });
       alert('todoを作成しました');
+      const todo: Todo = response.data.todo;
+      const enrichedTodo = enrichTodo(todo);
+      setEnrichedTodos((prevTodos) => [...prevTodos, enrichedTodo]);
+
       router.refresh();
       return response.data;
     } catch (error) {
@@ -97,6 +107,9 @@ const TodoInputField = ({
         const { data } = error.response as { data: { error: string } };
         alert(data.error);
       }
+    } finally {
+      reset(initialFormValues);
+      setIsInputField(false);
     }
   };
 

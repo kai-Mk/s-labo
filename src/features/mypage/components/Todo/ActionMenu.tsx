@@ -30,7 +30,6 @@ const ActionMenu = ({
 
   // 編集ボタン押した処理
   const handleUpdate = () => {
-    // 処理
     setEnrichedTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo.todo_id === todoId
@@ -43,11 +42,13 @@ const ActionMenu = ({
   // 削除ボタンを押したときの処理
   const router = useRouter();
   const handleDelete = async () => {
-    //Todo処理を書く
     const isTodoDelete = window.confirm(`「${task}」を削除しますか？`);
     if (isTodoDelete) {
       try {
         await apiClient.delete(`/api/todo/${todoId}`);
+        setEnrichedTodos((prevTodos) =>
+          prevTodos.filter((todo) => todo.todo_id !== todoId),
+        );
         router.refresh();
         return true;
       } catch (error) {

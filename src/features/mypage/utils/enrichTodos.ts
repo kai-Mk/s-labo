@@ -7,3 +7,11 @@ export const enrichTodos = (todos: Todo[]): EnrichTodo[] => {
     isUpdateField: false,
   }));
 };
+
+export const enrichTodo = (todo: Todo): EnrichTodo => {
+  return {
+    ...todo,
+    isActionMenu: false,
+    isUpdateField: false,
+  };
+};

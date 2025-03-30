@@ -19,6 +19,10 @@ export const createTodo = async (data: CreateTodoData) => {
       team_member_id: data.team_member_id,
       todo_date: data.todo_date,
     },
+    include: {
+      task_category: true,
+      project: true,
+    },
   });
 
   return newTodo;

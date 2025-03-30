@@ -31,6 +31,8 @@ const TodoList = ({ taskCategories, projects, todos }: TodoListProps) => {
           isInputField={isInputField}
           taskCategories={taskCategories}
           projects={projects}
+          setEnrichedTodos={setEnrichedTodos}
+          setIsInputField={setIsInputField}
         />
         {enrichedTodos && enrichedTodos.length !== 0
           ? enrichedTodos.map((item) => (
@@ -45,7 +47,7 @@ const TodoList = ({ taskCategories, projects, todos }: TodoListProps) => {
                 category={
                   item.task_category_id === 1 && projects.length !== 0
                     ? item.project!.project_name
-                    : item.task_category.task_category_name
+                    : item.task_category?.task_category_name
                 }
                 setEnrichedTodos={setEnrichedTodos}
               />
