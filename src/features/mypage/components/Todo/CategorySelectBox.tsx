@@ -8,18 +8,21 @@ interface CategorySelectBoxProps {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   taskCategories: TaskCategoryData[];
   projects: ProjectData[];
+  category?: string;
 }
 
 const CategorySelectBox = ({
   onChange,
   taskCategories,
   projects,
+  category,
 }: CategorySelectBoxProps) => {
   return (
     <select
       id="category"
       className={styles.todo_select_category}
       onChange={onChange}
+      defaultValue={category}
     >
       {/* optionのバリューはカテゴリーIDを指定 */}
       {taskCategories?.length !== 0 &&

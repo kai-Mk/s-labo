@@ -13,18 +13,11 @@ import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { CreateTodoData } from '../../schemas/todo.schema';
+import { createTodoSchema } from '../../schemas/todo.schema';
 import { enrichTodo } from '../../utils/enrichTodos';
+import { parseCategoryOption } from '../../utils/parseCategoryOption';
 import CategorySelectBox from './CategorySelectBox';
-
-const createTodoSchema = z.object({
-  todo_description: z.string().min(1, 'タスク内容を入力してください'),
-  // 文字列の数字できた場合にcoerceで自動で数値型に変更
-  task_category_id: z.coerce.number(),
-  project_id: z.coerce.number().nullable(),
-});
-
-type CreateTodoData = z.infer<typeof createTodoSchema>;
 
 // プロップスの型定義
 interface TodoInputFieldProps {
@@ -72,13 +65,9 @@ const TodoInputField = ({
     defaultValues: initialFormValues,
   });
 
-  // プロジェクトを選択した際にkがてごりーIDとプロジェクトIDもセットする処理
+  // プロジェクトを選択した際にカテゴリーDとプロジェクトIDもセットする処理
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const option = e.target.options[e.target.selectedIndex];
-    const categoryId = Number(option.getAttribute('data-category-id'));
-    const projectId = option.hasAttribute('data-project-id')
-      ? Number(option.getAttribute('data-project-id'))
-      : null;
+    const { categoryId, projectId } = parseCategoryOption(e);
 
     setValue('task_category_id', Number(categoryId));
     setValue('project_id', projectId);

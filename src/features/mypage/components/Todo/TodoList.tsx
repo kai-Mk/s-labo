@@ -39,6 +39,8 @@ const TodoList = ({ taskCategories, projects, todos }: TodoListProps) => {
               <TodoItem
                 key={item.todo_id}
                 todoId={item.todo_id}
+                categoryId={item.task_category_id}
+                projectId={item.project_id}
                 isUpdateField={item.isUpdateField}
                 isActionMenu={item.isActionMenu}
                 taskCategories={taskCategories}

@@ -11,6 +11,8 @@ import TodoUpdateForm from './TodoUpdateForm';
 
 interface TodoItemProps {
   todoId: number;
+  categoryId: number;
+  projectId: number | null;
   isUpdateField: boolean;
   isActionMenu: boolean;
   taskCategories: TaskCategoryData[];
@@ -22,6 +24,8 @@ interface TodoItemProps {
 
 const TodoItem = ({
   todoId,
+  categoryId,
+  projectId,
   isUpdateField,
   isActionMenu,
   taskCategories,
@@ -36,6 +40,9 @@ const TodoItem = ({
         <li className={styles.todo_update_field}>
           <TodoUpdateForm
             todoId={todoId}
+            categoryId={categoryId}
+            projectId={projectId}
+            category={category}
             task={task}
             taskCategories={taskCategories}
             projects={projects}
