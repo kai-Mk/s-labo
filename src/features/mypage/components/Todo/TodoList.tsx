@@ -34,7 +34,7 @@ const TodoList = ({ taskCategories, projects, todos }: TodoListProps) => {
           setEnrichedTodos={setEnrichedTodos}
           setIsInputField={setIsInputField}
         />
-        {enrichedTodos && enrichedTodos.length !== 0
+        {enrichedTodos?.length !== 0
           ? enrichedTodos.map((item) => (
               <TodoItem
                 key={item.todo_id}

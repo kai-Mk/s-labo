@@ -22,8 +22,7 @@ const CategorySelectBox = ({
       onChange={onChange}
     >
       {/* optionのバリューはカテゴリーIDを指定 */}
-      {taskCategories &&
-        taskCategories.length !== 0 &&
+      {taskCategories?.length !== 0 &&
         taskCategories.map((taskItem) =>
           // タスクが「プロジェクト」の場合サブフィールドとしてプロジェクトを選択
           taskItem.task_category_name === 'プロジェクト' ? (
@@ -32,7 +31,7 @@ const CategorySelectBox = ({
               label={taskItem.task_category_name}
             >
               {/* プロジェクトの配列をmap関数で繰り返す */}
-              {projects && projects.length !== 0
+              {projects?.length !== 0
                 ? projects.map((projectItem) => (
                     <option
                       key={projectItem.project_id}

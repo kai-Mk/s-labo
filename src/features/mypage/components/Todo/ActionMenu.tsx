@@ -1,6 +1,7 @@
 'use client';
 
 import type { EnrichTodo } from '@/types/todo';
+import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
@@ -11,7 +12,7 @@ import { isAxiosError } from 'axios';
 import { updateActionMenu } from '../../utils/updateActionMenu';
 
 interface ActionMenuProps {
-  setEnrichedTodos: React.Dispatch<React.SetStateAction<EnrichTodo[]>>;
+  setEnrichedTodos: Dispatch<SetStateAction<EnrichTodo[]>>;
   todoId: number;
   isActionMenu: boolean;
   task: string;
@@ -25,16 +26,16 @@ const ActionMenu = ({
 }: ActionMenuProps) => {
   // 三本バーを押した処理
   const handleActionMenu = () => {
-    setEnrichedTodos((prevTodos) => updateActionMenu(prevTodos, todoId));
+    setEnrichedTodos((prev) => updateActionMenu(prev, todoId));
   };
 
   // 編集ボタン押した処理
   const handleUpdate = () => {
-    setEnrichedTodos((prevTodos) =>
-      prevTodos.map((todo) =>
+    setEnrichedTodos((prev) =>
+      prev.map((todo) =>
         todo.todo_id === todoId
           ? { ...todo, isUpdateField: true, isActionMenu: false }
-          : todo,
+          : { ...todo, isUpdateField: false },
       ),
     );
   };

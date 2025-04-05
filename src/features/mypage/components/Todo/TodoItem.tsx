@@ -3,6 +3,7 @@
 import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
 import type { EnrichTodo } from '@/types/todo';
+import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
 import ActionMenu from './ActionMenu';
@@ -16,7 +17,7 @@ interface TodoItemProps {
   projects: ProjectData[];
   task: string;
   category: string;
-  setEnrichedTodos: React.Dispatch<React.SetStateAction<EnrichTodo[]>>;
+  setEnrichedTodos: Dispatch<SetStateAction<EnrichTodo[]>>;
 }
 
 const TodoItem = ({
@@ -33,10 +34,19 @@ const TodoItem = ({
     <>
       {isUpdateField ? (
         <li className={styles.todo_update_field}>
-          <TodoUpdateForm taskCategories={taskCategories} projects={projects} />
+          <TodoUpdateForm
+            todoId={todoId}
+            task={task}
+            taskCategories={taskCategories}
+            projects={projects}
+            setEnrichedTodos={setEnrichedTodos}
+          />
         </li>
       ) : (
         <li className={styles.todo_item}>
+          {/**
+           * //todoここにチェックを入れたらデータベースにcheckedの値を入れないといけない
+           */}
           <label className={styles.todo_checkbox_label}>
             <input type="checkbox" />
             <svg viewBox="0 0 80 80" height="20px" width="20px">

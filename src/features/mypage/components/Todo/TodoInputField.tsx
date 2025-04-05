@@ -3,7 +3,7 @@
 import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
 import type { EnrichTodo, Todo } from '@/types/todo';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
@@ -31,8 +31,8 @@ interface TodoInputFieldProps {
   isInputField: boolean;
   taskCategories: TaskCategoryData[];
   projects: ProjectData[];
-  setEnrichedTodos: React.Dispatch<React.SetStateAction<EnrichTodo[]>>;
-  setIsInputField: React.Dispatch<React.SetStateAction<boolean>>;
+  setEnrichedTodos: Dispatch<SetStateAction<EnrichTodo[]>>;
+  setIsInputField: Dispatch<SetStateAction<boolean>>;
 }
 
 const TodoInputField = ({
@@ -72,7 +72,7 @@ const TodoInputField = ({
     defaultValues: initialFormValues,
   });
 
-  // プロジェクトを選択した際にプロジェクトIDもセットする
+  // プロジェクトを選択した際にkがてごりーIDとプロジェクトIDもセットする処理
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const option = e.target.options[e.target.selectedIndex];
     const categoryId = Number(option.getAttribute('data-category-id'));
@@ -84,6 +84,7 @@ const TodoInputField = ({
     setValue('project_id', projectId);
   };
 
+  // 送信ボタンを押したときの処理
   const { teamId } = useParams();
   const router = useRouter();
   const onSubmit = async (data: CreateTodoData) => {
