@@ -11,6 +11,9 @@ export const getTodosByTeamMemberId = async (teamMemberId: number) => {
         task_category: true,
         project: true,
       },
+      orderBy: {
+        created_at: 'asc',
+      },
     });
     // チームメンバーがない場合は空文字を返す
     return todos ?? [];

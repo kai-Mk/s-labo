@@ -3,7 +3,7 @@
 import type { ProjectData } from '@/types/project';
 import type { TaskCategoryData } from '@/types/taskCategory';
 import type { EnrichTodo } from '@/types/todo';
-import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
