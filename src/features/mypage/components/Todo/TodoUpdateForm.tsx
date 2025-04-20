@@ -5,11 +5,14 @@ import type { TaskCategoryData } from '@/types/taskCategory';
 import type { EnrichTodo } from '@/types/todo';
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/(public)/team/[teamId]/mypage/mypage.module.scss';
+import { apiClient } from '@/lib/apiClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
+import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import type { CreateTodoData } from '../../schemas/todo.schema';
 import { createTodoSchema } from '../../schemas/todo.schema';
@@ -52,7 +55,6 @@ const TodoUpdateForm = ({
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm<CreateTodoData>({
     resolver: zodResolver(createTodoSchema),
     defaultValues: {
@@ -71,8 +73,33 @@ const TodoUpdateForm = ({
   };
 
   // 更新ボタン（紙飛行機アイコン）を押したときの処理
+  const router = useRouter();
   const onUpdate = async (data: CreateTodoData) => {
     // apiのPOST処理
+    try {
+      await apiClient.patch(`/api/todo/${todoId}`, data);
+      setEnrichedTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.todo_id === todoId
+            ? {
+                ...todo,
+                project_id: data.project_id,
+                task_category_id: data.task_category_id,
+                todo_description: data.todo_description,
+                isUpdateField: false,
+              }
+            : todo,
+        ),
+      );
+      router.refresh();
+      return true;
+    } catch (error) {
+      console.error(error);
+      if (isAxiosError(error)) {
+        const { data } = error.response as { data: { error: string } };
+        alert(data.error);
+      }
+    }
   };
 
   return (
@@ -91,8 +118,8 @@ const TodoUpdateForm = ({
         <input
           type="text"
           id="task"
-          className={`${styles.todo_input}`}
-          placeholder="タスクを入力"
+          className={`${styles.todo_input} ${errors?.todo_description && styles.error_input}`}
+          placeholder={`${errors?.todo_description ? errors?.todo_description?.message : 'タスクを入力'}`}
           {...register('todo_description')}
         />
         <CategorySelectBox
